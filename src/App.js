@@ -17,6 +17,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/Home" element={<Home />} />
             <Route path="/surveys" element={<Surveys />} />
             <Route path="/users/:userId/surveys/:surveyId" element={<SurveyDetails />} /> {/* Anket detay sayfası */}
             <Route path="/create-survey" element={<CreateSurvey />} />
