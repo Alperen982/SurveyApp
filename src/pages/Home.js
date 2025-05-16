@@ -15,7 +15,7 @@ function Home() {
         .image('cld-sample-5')
         .format('auto') // Optimize delivery by resizing and applying auto-format and auto-quality
         .quality('auto')
-        .resize(fill().width(300).height(300).gravity(autoGravity())); // Transform the image: auto-crop to square aspect_ratio
+        .resize(auto().gravity(autoGravity()).width(500).height(500)); // Transform the image: auto-crop to square aspect_ratio
 
   return (<AdvancedImage cldImg={img}/>);
 }
