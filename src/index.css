@@ -1,0 +1,1176 @@
+:root {
+  --primary-color: #4f46e5;
+  --primary-dark: #4338ca;
+  --secondary-color: #1f2937;
+  --background-color: #111827;
+  --card-background: #1e293b;
+  --text-color: #e5e7eb;
+  --text-light: #9ca3af;
+  --border-color: #374151;
+  --input-background: #1f2937;
+  --hover-color: #2d3748;
+  --error-background: #dc2626;
+  --success-background: #059669;
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.navbar {
+  background: var(--card-background);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.nav-link:hover {
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+}
+
+.create-button {
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.create-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.surveys-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  padding: 16px;
+}
+
+.survey-card {
+  background: var(--card-background);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.survey-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 100px;
+}
+
+.survey-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.survey-card-header h3 {
+  color: var(--text-color);
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.event-type {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  width: fit-content;
+  margin-top: 8px;
+}
+
+.event-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--secondary-color);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.event-date, .location-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.event-date i, .location-info i {
+  min-width: 16px;
+}
+
+.survey-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color);
+  background: var(--card-background);
+  border-radius: 0 0 12px 12px;
+}
+
+.deadline {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.survey-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Butonların ortak stilleri */
+.copy-link-button,
+.view-button {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 14px;
+  text-decoration: none;
+  justify-content: center;
+  width: 111.72px;
+  height: 38px;
+  box-sizing: border-box;
+}
+
+/* Sadece ankete katıl butonu için renk değişikliği */
+.view-button {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Hover efektleri */
+.copy-link-button:hover {
+  background: var(--hover-color);
+}
+
+.view-button:hover {
+  background: var(--primary-dark);
+}
+
+.create-survey {
+  background: var(--card-background);
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 32px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: all 0.3s;
+  background-color: var(--input-background);
+  color: var(--text-color);
+}
+
+.form-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+  outline: none;
+}
+
+.question-card {
+  background: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 32px;
+}
+
+.delete-button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submit-button:hover {
+  background: var(--primary-dark);
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.auth-form {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 32px;
+  background: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.date-time-question {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.time-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.time-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--input-background);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.time-option:hover {
+  background: var(--hover-color);
+}
+
+.time-option input[type="radio"],
+.time-option input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary-color);
+}
+
+.time-option-label {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.date-question, .time-question {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.time-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.time-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.time-option:hover {
+  background: #e9ecef;
+}
+
+.datetime-question, .time-question {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.datetime-option, .time-option {
+  margin-top: 15px;
+}
+
+.option-inputs {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.option-inputs input {
+  flex: 1;
+}
+
+.add-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s;
+}
+
+.add-button:hover {
+  background: var(--primary-dark);
+}
+
+.survey-detail {
+  background: var(--card-background);
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 800px;
+  margin: 32px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.survey-detail-content {
+  border-left: 3px solid var(--primary-color);
+  padding-left: 20px;
+}
+
+.survey-detail-header {
+  margin-bottom: 20px;
+}
+
+.survey-detail-header h2 {
+  margin: 0 0 12px 0;
+  font-size: 1.8rem;
+  color: var(--text-color);
+}
+
+.survey-detail-description {
+  margin: 16px 0;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.survey-detail-info {
+  margin: 20px 0;
+}
+
+.survey-detail-location {
+  margin-bottom: 24px;
+}
+
+.location-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.maps-container {
+  width: 100%;
+  height: 100vh;
+  max-height: 600px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.maps-container iframe,
+.maps-container > div {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.maps-container iframe {
+  display: block;
+}
+
+.survey-detail-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.question-box {
+  margin-top: 24px;
+}
+
+.question-box h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.2rem;
+}
+
+.time-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.time-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--input-background);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.survey-detail-footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.deadline-info {
+  text-align: center;
+  margin-bottom: 16px;
+  color: var(--text-light);
+}
+
+.submit-answers {
+  width: 100%;
+  padding: 14px;
+  background: var(--success-background);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submit-answers:hover {
+  transform: translateY(-2px);
+  filter: brightness(110%);
+}
+
+.surveys-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 48px;
+  padding: 32px;
+}
+
+.home-header h1 {
+  color: var(--text-color);
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+}
+
+.create-survey-button {
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.create-survey-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.surveys-grid {
+  gap: 30px;
+}
+
+.event-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  color: var(--text-light);
+}
+
+.event-meta i {
+  font-size: 1.2em;
+}
+
+.option-label {
+  color: var(--text-light);
+  margin-bottom: 10px;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--input-background);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.option-item:hover {
+  background: var(--hover-color);
+}
+
+.option-item input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+}
+
+.datetime-option, .time-option {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.survey-form {
+  background: var(--card-background);
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.question-container {
+  background: var(--secondary-color);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.question-container h3 {
+  color: var(--text-color);
+  margin-top: 0;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.question-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.options-container {
+  display: block; /* seçeneklerin alt alta sıralanmasını sağlar */
+  margin-top: 10px;
+}
+
+.option-label {
+  display: block; /* Her bir seçeneğin alt alta sıralanması için */
+  margin-bottom: 5px;
+}
+
+.option-input {
+  margin-right: 10px;
+}
+
+.option-text {
+  font-size: 16px;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.datetime-inputs {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.delete-option-button {
+  background: var(--error-background);
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.add-option-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-option-button:hover {
+  background: var(--primary-dark);
+}
+
+.form-input {
+  background-color: var(--input-background);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.form-input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.event-header-group {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+textarea.form-input {
+  min-height: 80px;
+}
+
+h2, h3, h4 {
+  margin-bottom: 24px;
+}
+
+.questions-section {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Butonlar için yeni stiller */
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-color);
+}
+
+.add-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.add-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.submit-button {
+  background: var(--success-background);
+  margin-top: 16px;
+}
+
+/* Seçenek kartı için güncellemeler */
+.option-item {
+  background: var(--input-background);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 16px;
+}
+
+.add-option-button {
+  background: var(--primary-color);
+  width: 100%;
+  padding: 12px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.question-card {
+  margin-bottom: 40px;
+}
+
+/* Aktif link için stil */
+.nav-link.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Logo hover efekti */
+.nav-logo:hover {
+  color: var(--primary-color);
+}
+
+.event-date, .location-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.location-info {
+  color: var(--text-light);
+}
+
+.event-date i, .location-info i {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.survey-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 100px;
+}
+
+.question-box {
+  background: var(--secondary-color);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.question-box h3 {
+  color: var(--text-color);
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+}
+
+.time-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.time-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--input-background);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.time-option:hover {
+  background: var(--hover-color);
+}
+
+.time-option input[type="radio"],
+.time-option input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary-color);
+}
+
+.time-option-label {
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+/* Boş durum için stil */
+.no-surveys {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-light);
+}
+
+/* Responsive düzenlemeler */
+@media (max-width: 768px) {
+  .surveys-grid {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+  
+  .home {
+    padding: 16px;
+  }
+}
+
+.copy-link-button {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.copy-link-button:hover {
+  background: var(--hover-color);
+}
+
+.copy-success {
+  color: var(--success-background);
+  text-align: center;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+.maps-container {
+  width: 100%;
+  height: 450px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.maps-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.delete-survey-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--error-background);
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.8;
+  transition: all 0.3s;
+  z-index: 1;
+}
+
+.delete-survey-button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Saat seçenekleri için grid düzeni */
+.question-box[data-type="time"] .time-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Datetime seçenekleri için alt alta düzen */
+.question-box[data-type="datetime"] .time-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Saat seçeneği kartları için ortak stiller */
+.time-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--input-background);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.time-option:hover {
+  background: var(--hover-color);
+}
+
+.time-option input[type="radio"],
+.time-option input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary-color);
+}
+
+.time-option-label {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  white-space: nowrap;
+} 
+/* surveys-page: Sayfanın üst kısmına yerleştirir ve içeriği ortalar */
+.surveys-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Yatayda ortalama */
+  justify-content: flex-start; /* Üst kısmına yerleştirme */
+  min-height: 100vh; /* Ekranın tamamını kapsayacak şekilde */
+  padding: 20px;
+  background-color: #111827; /* Sayfa arka plan rengi */
+}
+
+/* Survey kartlarının yerleşimi için konteyner */
+.survey-container {
+  display: flex;
+  flex-wrap: wrap; /* Kartları yan yana yerleştirebilmek için */
+  justify-content: flex-start; /* Kartları sola hizalamak için */
+  gap: 20px; /* Kartlar arasına boşluk eklemek için */
+  margin-top: 20px; /* "Oluşturduğun Anketler" yazısından sonra biraz boşluk bırakıyoruz */
+}
+
+/* Her bir anket kartı */
+.survey-card {
+  width: 280px; /* Kart genişliğini biraz küçültüyoruz */
+  padding: 20px;
+  background-color: #111827; /* Lacivert arka plan */
+  border: 2px solid #800080; /* Mor sınır çizgisi */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: white;
+  text-align: center;
+  transition: transform 0.2s; /* Hover animasyonu */
+  margin-top: 20px; /* Üst kısmına biraz boşluk ekliyoruz */
+}
+/* Kart hover efekti */
+.survey-card:hover {
+  transform: translateY(-10px); /* Kartı biraz yukarıya kaydırarak efekt */
+}
+
+/* Karttaki başlık */
+.survey-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Bitiş tarihi */
+.survey-date {
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* Link'in stilini düzeltiyoruz */
+.survey-link {
+  text-decoration: none;
+  color: white;
+}
+/* Genel Sayfa Stil */
+.survey-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* SurveyBox için stil */
+.survey-box {
+  width: 50%;
+  height: 80%;
+  padding: 30px;
+  background-color: #111827; /* Lacivert arka plan */
+  border: 2px solid #800080; /* Mor ince çizgi */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Başlık stili */
+.survey-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+/* Etkinlik Detayları Bölümü */
+.survey-section {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Etiket ve değer stil */
+.survey-label {
+  font-weight: bold;
+  color: #fff;
+}
+
+.survey-value {
+  color: #ccc;
+}
+
+/* Sorular kısmı */
+.survey-question {
+  margin-top: 10px;
+}
+
+.survey-question h4 {
+  color: #fff;
+}
+
+.survey-question label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Buton stili */
+.survey-button {
+  padding: 10px 20px;
+  background-color: #800080; /* Mor buton rengi */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* Google Maps Link stili */
+.survey-map-link a {
+  color: #ffcc00; /* Sarı renk */
+}
+
+.survey-option-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Boşluk bırakmak için */
+}
+
+.survey-option-text {
+  margin-right: 10px; /* Tarih kısmı ile sayıyı ayırmak için */
+  flex-grow: 1;
+}
+
+.survey-option-count {
+  font-weight: bold; /* Seçim sayısını daha belirgin yapmak için */
+  margin-left: 5px;  /* Sayı ve tarih arasında biraz boşluk */
+}
+
+.survey-question .question-text {
+  text-align: center; /* Sadece metni ortalar */
+  margin: 0; /* Eğer varsa margin'i sıfırlar */
+  font-size: 16px; /* İsteğe bağlı: Yazı boyutunu ayarlayabilirsiniz */
+}
+
+.survey-question .option-count {
+  display: inline-block;
+  margin-left: 10px; /* Boşluk ekleyebilirsiniz */
+}
+.survey-question h4 {
+  text-align: center;   /* Metni ortalar */
+  margin: 0;             /* Varsayılan margin'leri kaldırır */
+  padding: 0;            /* Padding varsa onu sıfırlar */
+}
+.centered-text {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.google-maps-link {
+  color: red;
+  text-decoration: underline;
+}
