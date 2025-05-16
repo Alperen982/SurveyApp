@@ -26,12 +26,14 @@ body {
   padding: 20px;
 }
 
-/* Stack everything vertically and center it */
+/* Stack everything vertically and left‑align it */
 .upload-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;   /* ← left‑align all children */
   padding: 20px;
+  width: 100%;               /* optional: make it span the full viewport width */
+  box-sizing: border-box;    /* ensures padding doesn’t push it wider than the screen */
 }
 
 /* Add some bottom spacing under the image */
@@ -44,16 +46,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;           /* space between input & button */
-  align-items: center;
+  align-items: flex-start;  /* also left‑align the input and button */
 }
 
 /* File input: make it minimal */
 .controls input[type="file"] {
   cursor: pointer;
-  /* if you want to hide the filename entirely, you could:
-     opacity: 0; width: 40px; height: 40px; position: relative;
-     and add a ::before label, etc.
-  */
 }
 
 /* Upload button: blank square */
