@@ -10,13 +10,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     signInWithSession(email, password).then((user)=> {
-      if (window.history.length > 1) {
-        console.log("Geçmiş bulundu, bir önceki sayfaya yönlendiriliyor...");
-        window.history.back();
-      } else {
-        console.log("Geçmiş bulunamadı, varsayılan sayfaya yönlendiriliyor...");
-        window.location.href = "/login";
-      }
+        window.location.href = "/home";
     });
   };
 
@@ -30,6 +24,7 @@ function Login() {
             id = "lMail"
             type="email"
             value={email}
+            placeholder="Mail adresinizi giriniz."
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -40,6 +35,7 @@ function Login() {
             id = "lPassword"
             type="password"
             value={password}
+            placeholder="Şifrenizi giriniz."
             onChange={(e) => setPassword(e.target.value)}
             required
           />

@@ -53,6 +53,7 @@ function Register() {
           <input
             type="email"
             value={email}
+            placeholder="Geçerli bir mail giriniz."
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -72,6 +73,7 @@ function Register() {
           <input
             type="password"
             value={confirmPassword}
+            placeholder="En az 6 karakter giriniz."
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
