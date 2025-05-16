@@ -16,7 +16,7 @@ function App() {
         <Navbar />
         <div className="container">
           <Routes>
-            <Route path="/Home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/surveys" element={<Surveys />} />
             <Route path="/users/:userId/surveys/:surveyId" element={<SurveyDetails />} /> {/* Anket detay sayfası */}
             <Route path="/create-survey" element={<CreateSurvey />} />
