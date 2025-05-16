@@ -49,10 +49,53 @@ body {
   align-items: flex-start;  /* also left‑align the input and button */
 }
 
-/* File input: make it minimal */
+/* Make the whole file-input area match the button size */
 .controls input[type="file"] {
-  cursor: pointer;
+  /* remove default padding/appearance so only the button shows */
+  padding: 0;
+  border: none;
+  width: 300px;
+  height: 40px;
+  /* hide the filename text to keep it clean — if you want it back, remove this */
+  color: transparent;
+  text-indent: 100%;
+  overflow: hidden;
 }
+
+/* WebKit (Chrome/Safari) */
+.controls input[type="file"]::-webkit-file-upload-button {
+  appearance: none;
+  background-color: #111827;
+  color: #fff;
+  font: inherit;             /* match your page’s font */
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Firefox */
+.controls input[type="file"]::file-selector-button {
+  appearance: none;
+  background-color: #111827;
+  color: #fff;
+  font: inherit;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover state for both */
+.controls input[type="file"]::-webkit-file-upload-button:hover,
+.controls input[type="file"]::file-selector-button:hover {
+  background-color: #4338ca;
+}
+
 
 /* Upload button: blank square */
 .controls button {
