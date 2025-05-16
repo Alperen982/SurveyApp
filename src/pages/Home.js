@@ -57,13 +57,10 @@ function Home() {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: 20 }}>
-      <h2>Profil Resmi Yükle</h2>
-
-      {/* Local preview or post-upload Cloudinary image */}
+    <div className="upload-container">
       {img && (
-        <div style={{ marginBottom: 20 }}>
-          <AdvancedImage cldImg={img} />
+        <div className="image-preview">
+          <AdvancedImage cldImg={img} className="uploaded-image" />
         </div>
       )}
 

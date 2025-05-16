@@ -26,6 +26,26 @@ body {
   padding: 20px;
 }
 
+/* Container holding the preview & the rest of the form/content */
+.upload-container {
+  display: flex;
+  align-items: flex-start;  /* top‑aligns the image and form side by side */
+  padding: 20px;
+}
+
+/* The box around the image */
+.image-preview {
+  margin-right: 20px;       /* space between image and form */
+}
+
+/* The image itself */
+.uploaded-image img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;        /* crop/scale to fill without distortion */
+  border-radius: 8px;       /* optional rounded corners */
+}
+
 .navbar {
   background: var(--card-background);
   padding: 1rem 0;
