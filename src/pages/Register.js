@@ -17,7 +17,8 @@ function Register() {
     .then((userCredential)=> {
       const user=userCredential.user;
       const userData={
-        email: email
+        email: email,
+        password: password
       };
       alert("Hesap başarıyla oluşturuldu.");
       const docRef = doc(db, "users", user.uid);
