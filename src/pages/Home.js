@@ -39,7 +39,7 @@ function Home() {
 
     const data = new FormData();
     data.append('file', file);
-    data.append('upload_preset', 'YOUR_UNSIGNED_PRESET'); // replace with your unsigned preset
+    data.append('upload_preset', 'SurveyApp'); // replace with your unsigned preset
 
     try {
       const res = await axios.post(
