@@ -38,6 +38,12 @@ body {
   margin-right: 20px;       /* space between image and form */
 }
 
+.upload-button {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+}
+
 /* The image itself */
 .uploaded-image img {
   width: 300px;
