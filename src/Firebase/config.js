@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, onAuthStateChanged, signOut, browserLocalPersistence} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import {getFirestore, setDoc, doc, addDoc, collection, query, getDocs, getDoc, deleteDoc, updateDoc} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"
+import { initializeApp } from 'firebase/app';
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, onAuthStateChanged, signOut, browserLocalPersistence} from 'firebase/auth';
+import {getFirestore, setDoc, doc, addDoc, collection, query, getDocs, getDoc, deleteDoc, updateDoc} from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCayk8QNCwkr_QWgSGWubIKFJYxTvQUZ_c",
