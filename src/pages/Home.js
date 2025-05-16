@@ -34,7 +34,7 @@ function Home() {
 
   // Upload to Cloudinary
   const handleUpload = async () => {
-    if (!file) return alert('Önce bir      seçin.');
+    if (!file) return alert('Önce bir dosya seçin.');
     setUploading(true);
 
     const data = new FormData();
@@ -57,33 +57,30 @@ function Home() {
   };
 
   return (
-    <div className="upload-container">
-      {img && (
-        <div className="image-preview">
-          <AdvancedImage cldImg={img} className="uploaded-image" />
-        </div>
-      )}
+  <div className="upload-container">
+    {img && (
+      <div className="image-preview">
+        <AdvancedImage cldImg={img} className="uploaded-image" />
+      </div>
+    )}
 
-      {/* File input */}
+    {/* Controls below the image */}
+    <div className="controls">
       <input
         type="file"
         accept="image/*"
         onChange={handleFileChange}
       />
 
-      {/* Upload button */}
-      <div className="upload-button">
-      <div style={{ marginTop: 10 }}>
-        <button
-          onClick={handleUpload}
-          disabled={uploading || !file}
-        >
-          {uploading ? 'Yükleniyor...' : 'Yükle'}
-        </button>
-        </div>
-      </div>
+      <button
+        onClick={handleUpload}
+        disabled={uploading || !file}
+      >
+        {/* no text! */}
+      </button>
     </div>
-  );
+  </div>
+);
 }
 
 export default Home;

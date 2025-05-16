@@ -26,30 +26,58 @@ body {
   padding: 20px;
 }
 
-/* Container holding the preview & the rest of the form/content */
+/* Stack everything vertically and center it */
 .upload-container {
   display: flex;
-  align-items: flex-start;  /* top‑aligns the image and form side by side */
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
 }
 
-/* The box around the image */
+/* Add some bottom spacing under the image */
 .image-preview {
-  margin-right: 20px;       /* space between image and form */
+  margin-bottom: 20px;
 }
 
-.upload-button {
+/* Style for the controls wrapper */
+.controls {
   display: flex;
-  align-items: flex-start;
-  padding: 20px;
+  flex-direction: column;
+  gap: 10px;           /* space between input & button */
+  align-items: center;
+}
+
+/* File input: make it minimal */
+.controls input[type="file"] {
+  cursor: pointer;
+  /* if you want to hide the filename entirely, you could:
+     opacity: 0; width: 40px; height: 40px; position: relative;
+     and add a ::before label, etc.
+  */
+}
+
+/* Upload button: blank square */
+.controls button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+/* Disabled state */
+.controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* The image itself */
 .uploaded-image img {
   width: 300px;
   height: 300px;
-  object-fit: cover;        /* crop/scale to fill without distortion */
-  border-radius: 8px;       /* optional rounded corners */
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .navbar {
