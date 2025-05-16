@@ -62,6 +62,7 @@ function Register() {
           <input
             type="password"
             value={password}
+            placeholder="En az 6 karakter giriniz."
             onChange={(e) => setPassword(e.target.value)}
             required
           />
