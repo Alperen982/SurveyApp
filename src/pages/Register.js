@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { auth, db, doc, setDoc, createUserWithEmailAndPassword } from '../Firebase/config';
+import React from 'react';
 
 function Register() {
   const [email, setEmail] = useState('');
