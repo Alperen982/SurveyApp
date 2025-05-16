@@ -78,7 +78,7 @@ function CreateSurvey() {
         const placeholderLink = Link;
       
         try {
-          const response = await axios.post("http://localhost:5000/send-email", {
+          const response = await axios.post("/api/send-email", {
             recipients: emails,
             subject: "Yeni Anket Linkiniz",
             message: `Merhaba, anketinize şu link üzerinden erişebilirsiniz: ${placeholderLink}`,
