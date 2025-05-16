@@ -35,9 +35,8 @@ function Navbar() {
     return (
       <nav className="navbar">
         <div className="container">
-          <Link to="/" className="nav-logo">SurveyApp</Link>
           <div className="nav-links">
-            <Link to="/" className="nav-link">Ana Sayfa</Link>
+            <Link to="/Home" className="nav-link">Ana Sayfa</Link>
             <Link to="/surveys" className="nav-link">Etkinliklerim</Link>
             <Link to="/create-survey" className="nav-link">Etkinlik Oluştur</Link>
             <a href="/login" className="nav-link" onClick={handleLogout}>
@@ -51,7 +50,6 @@ function Navbar() {
     return (
       <nav className="navbar">
         <div className="container">
-          <Link to="/" className="nav-logo">SurveyApp</Link>
           <div className="nav-links">
             <Link to="/login" className="nav-link">Giriş Yap</Link>
             <Link to="/register" className="nav-link">Kayıt Ol</Link>
