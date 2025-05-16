@@ -35,9 +35,8 @@ function Navbar() {
     return (
       <nav className="navbar">
         <div className="container">
-          <div className="nav-logo">SurveyApp</div>
+          <Link to="/" className="nav-logo">SurveyApp</Link>
           <div className="nav-links">
-            <Route path="/" element={<Navigate to="/Home" replace />} />
             <Link to="/Home" className="nav-link">Ana Sayfa</Link>
             <Link to="/surveys" className="nav-link">Etkinliklerim</Link>
             <Link to="/create-survey" className="nav-link">Etkinlik Oluştur</Link>
@@ -52,7 +51,7 @@ function Navbar() {
     return (
       <nav className="navbar">
         <div className="container">
-          <div className="nav-logo">SurveyApp</div>
+          <Link to="/" className="nav-logo">SurveyApp</Link>
           <div className="nav-links">
             <Link to="/login" className="nav-link">Giriş Yap</Link>
             <Link to="/register" className="nav-link">Kayıt Ol</Link>
