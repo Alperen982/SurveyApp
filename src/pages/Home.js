@@ -54,7 +54,6 @@ function Home() {
     <div className="home">
       {surveys.length === 0 ? (
         <div className="no-surveys">
-          <p>Henüz oluşturulmuş bir etkinlik anketi bulunmuyor.</p>
         </div>
       ) : (
         <div className="surveys-grid">

@@ -24,7 +24,7 @@ function Register() {
       const docRef = doc(db, "users", user.uid);
       setDoc(docRef, userData)
       .then(()=>{
-        document.location.href="/login";
+        document.location.href="/home";
       })
       .catch((error)=>{
         console.error("error writing document", error);
