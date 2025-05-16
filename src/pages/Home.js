@@ -34,7 +34,7 @@ function Home() {
 
   // Upload to Cloudinary
   const handleUpload = async () => {
-    if (!file) return alert('Önce bir dosya seçin.');
+    if (!file) return alert('Önce bir      seçin.');
     setUploading(true);
 
     const data = new FormData();
@@ -58,29 +58,37 @@ function Home() {
 
   return (
     <div className="upload-container">
-      {img && (
-        <div className="image-preview">
-          <AdvancedImage cldImg={img} className="uploaded-image" />
-        </div>
-      )}
+    {img && (
+      <div className="image-preview">
+        <AdvancedImage cldImg={img} className="uploaded-image" />
+      </div>
+    )}
 
-      {/* File input */}
+    {/* Controls below the image */}
+    <div className="controls" style={{ marginTop: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
       <input
         type="file"
         accept="image/*"
         onChange={handleFileChange}
+        style={{ cursor: 'pointer' }}
       />
 
-      {/* Upload button */}
-      <div style={{ marginTop: 10 }}>
-        <button
-          onClick={handleUpload}
-          disabled={uploading || !file}
-        >
-          {uploading ? 'Yükleniyor...' : 'Yükle'}
-        </button>
-      </div>
+      <button
+        onClick={handleUpload}
+        disabled={uploading || !file}
+        style={{
+          width: '40px',
+          height: '40px',
+          borderRadius: '5px',
+          backgroundColor: '#eee',
+          border: '1px solid #ccc',
+          cursor: uploading || !file ? 'not-allowed' : 'pointer'
+        }}
+      >
+        {/* Optional: You could add an icon here instead of empty */}
+      </button>
     </div>
+  </div>
   );
 }
 
