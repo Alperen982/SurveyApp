@@ -10,7 +10,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     signInWithSession(email, password).then((user)=> {
-        window.location.href = "/home";
+        window.location.href = "/Home";
     });
   };
 
