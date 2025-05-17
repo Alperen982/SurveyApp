@@ -3,9 +3,7 @@ import { signInWithSession} from '../Firebase/config';
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const navigate = useNavigate();
-const location = useLocation();
-const [error, setError] = useState('');
+
 
 const params = new URLSearchParams(location.search);
 const redirectTo = params.get('next') || '/Home';
@@ -16,6 +14,9 @@ function Login() {
   
 
   const handleSubmit = async (e) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [error, setError] = useState('');
   e.preventDefault();
   try {
     const user = await signInWithSession(email, password);
