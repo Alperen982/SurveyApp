@@ -27,96 +27,75 @@ body {
 }
 
 .upload-container {
-  display: flex;              /* establish flexbox */
-  align-items: flex-start;    /* align children to the left/top */ 
-  gap: 1rem;                  /* space between button & image */
+  display: flex;
+  flex-direction: column;    /* stack image, then controls */
+  align-items: flex-start;
+  gap: 1rem;
   padding: 1rem;
 }
 
-.controls {
-  display: flex;
-  flex-direction: column;     /* stack file input + button */
-  align-items: flex-start;    /* ensure left alignment */
-  gap: 0.5rem;
+.image-preview {
+  /* optional wrapper styles */
 }
 
 .uploaded-image {
   width: 300px;
   height: 300px;
-  object-fit: cover;          /* maintain aspect ratio, fill crop */
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
-/* Make the whole file-input area match the button size */
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* File input button */
 .controls input[type="file"] {
-  /* remove default padding/appearance so only the button shows */
-  padding: 0;
-  border: none;
-  width: 300px;
-  height: 40px;
-  /* hide the filename text to keep it clean — if you want it back, remove this */
-  color: transparent;
-  text-indent: 100%;
-  overflow: hidden;
+  color: initial;
+  text-indent: 0;
+  overflow: visible;
 }
 
-/* WebKit (Chrome/Safari) */
-.controls input[type="file"]::-webkit-file-upload-button {
-  appearance: none;
-  background-color: #111827;
-  color: #fff;
-  font: inherit;             /* match your page’s font */
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-/* Firefox */
+.controls input[type="file"]::-webkit-file-upload-button,
 .controls input[type="file"]::file-selector-button {
   appearance: none;
   background-color: #111827;
-  color: #fff;
+  color: #ffffff;
   font: inherit;
-  width: 100%;
-  height: 100%;
+  padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-/* Hover state for both */
 .controls input[type="file"]::-webkit-file-upload-button:hover,
 .controls input[type="file"]::file-selector-button:hover {
   background-color: #4338ca;
 }
 
-
-/* Upload button: blank square */
+/* Upload button */
 .controls button {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  background-color: #111827;
+  color: #ffffff;
+  border: none;
   border-radius: 5px;
-  background-color: #f0f0f0;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-/* Disabled state */
+.controls button:hover:not(:disabled) {
+  background-color: #4338ca;
+}
+
 .controls button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-/* The image itself */
-.uploaded-image img {
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
 }
 
 .navbar {
