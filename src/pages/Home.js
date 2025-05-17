@@ -79,38 +79,40 @@ function Home() {
   };
 
   return (
-  <div className="upload-container flex flex-col items-center gap-4 mt-8">
-    {/* Profil Fotoğrafı */}
-    <div className="image-preview">
-      <AdvancedImage
-        cldImg={cldImage}
-        className="uploaded-image"
-        alt="Profil"
-      />
-    </div>
-
-    {/* Yükleme Butonu */}
-    <div className="controls">
-      <input
-        id="fileInput"
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        style={{ display: 'none' }}
-        disabled={uploading}
-      />
-      <label htmlFor="fileInput" className="custom-file-button text-center">
-        {uploading ? 'Yükleniyor…' : 'Profil resmini güncelle'}
-      </label>
-    </div>
-
-    {/* Kullanıcı Bilgileri */}
-    {userData && (
-      <div className="text-center mt-2 text-gray-700">
-        <p><strong>Mail adresi:</strong> {userData.email}</p>
-        <p><strong>Oluşturulan Anket Sayısı:</strong> {userData.surveyCount ?? 0}</p>
+  <div className="w-full max-w-screen-md mx-auto px-4">
+    <div className="upload-container flex flex-col items-center gap-4 mt-8">
+      {/* Profil Fotoğrafı */}
+      <div className="image-preview">
+        <AdvancedImage
+          cldImg={cldImage}
+          className="uploaded-image"
+          alt="Profil"
+        />
       </div>
-    )}
+
+      {/* Yükleme Butonu */}
+      <div className="controls">
+        <input
+          id="fileInput"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+          disabled={uploading}
+        />
+        <label htmlFor="fileInput" className="custom-file-button text-center">
+          {uploading ? 'Yükleniyor…' : 'Profil resmini güncelle'}
+        </label>
+      </div>
+
+      {/* Kullanıcı Bilgileri */}
+      {userData && (
+        <div className="text-center mt-2 text-gray-700">
+          <p><strong>Mail adresi:</strong> {userData.email}</p>
+          <p><strong>Oluşturulan Anket Sayısı:</strong> {userData.surveyCount ?? 0}</p>
+        </div>
+      )}
+    </div>
   </div>
 );
 }
