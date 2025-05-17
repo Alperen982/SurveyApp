@@ -4,7 +4,6 @@ import { fill } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { AdvancedImage } from '@cloudinary/react';
 import axios from 'axios';
-import React from 'react';
 
 function Home() {
   const [publicId, setPublicId] = useState('PlaceHolder');
