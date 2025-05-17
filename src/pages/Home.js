@@ -74,7 +74,6 @@ function Home() {
     <button
       type="button"
       onClick={handleUpload}
-      disabled={uploading || !file}
       className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
     >
       {uploading ? "Yükleniyor…" : "Yükle"}
