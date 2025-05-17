@@ -57,26 +57,35 @@ function Home() {
     <div className="upload-container">
       {cldImage && (
         <div className="image-preview">
-          <AdvancedImage 
-            cldImg={cldImage} 
-            className="uploaded-image" 
-            alt="Profil" 
+          <AdvancedImage
+            cldImg={cldImage}
+            className="uploaded-image"
+            alt="Profil"
           />
         </div>
       )}
+
       <div className="controls">
+        {/* Hidden native input */}
         <input
+          id="fileInput"
           type="file"
           accept="image/*"
           onChange={handleFileChange}
+          style={{ display: 'none' }}
         />
+        {/* Custom label button */}
+        <label htmlFor="fileInput" className="custom-file-button">
+          Profil resmini güncelle
+        </label>
+
         <button
           type="button"
           onClick={handleUpload}
           disabled={uploading}
-          className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+          className="upload-btn"
         >
-          {uploading ? "Yükleniyor…" : "Yükle"}
+          {uploading ? 'Yükleniyor…' : 'Yükle'}
         </button>
       </div>
     </div>

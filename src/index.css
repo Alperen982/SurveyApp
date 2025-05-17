@@ -53,47 +53,44 @@ body {
   gap: 0.5rem;
 }
 
-/* File input button */
 .controls input[type="file"] {
-  color: initial;
-  text-indent: 0;
-  overflow: visible;
+  display: none;
 }
 
-.controls input[type="file"]::-webkit-file-upload-button,
-.controls input[type="file"]::file-selector-button {
-  appearance: none;
+/* our custom “select file” button */
+.custom-file-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
   background-color: #111827;
-  color: #ffffff;
+  color: #fff;
   font: inherit;
-  padding: 0.5rem 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s;
+  text-align: center;
 }
 
-.controls input[type="file"]::-webkit-file-upload-button:hover,
-.controls input[type="file"]::file-selector-button:hover {
+.custom-file-button:hover {
   background-color: #4338ca;
 }
 
-/* Upload button */
-.controls button {
+/* the existing upload button—just moving styles into a class */
+.upload-btn {
   padding: 0.5rem 1rem;
   background-color: #111827;
-  color: #ffffff;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s;
 }
 
-.controls button:hover:not(:disabled) {
+.upload-btn:hover:not(:disabled) {
   background-color: #4338ca;
 }
 
-.controls button:disabled {
+.upload-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
