@@ -26,29 +26,27 @@ body {
   padding: 20px;
 }
 
-/* Stack everything vertically and left‑align it */
 .upload-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;   /* ← left‑align all children */
-  padding: 20px;
-  width: 100%;               /* optional: make it span the full viewport width */
-  box-sizing: border-box;    /* ensures padding doesn’t push it wider than the screen */
+  display: flex;              /* establish flexbox */
+  align-items: flex-start;    /* align children to the left/top */ 
+  gap: 1rem;                  /* space between button & image */
+  padding: 1rem;
 }
 
-/* Add some bottom spacing under the image */
-.image-preview {
-  margin-bottom: 20px;
-}
-
-/* Style for the controls wrapper */
 .controls {
   display: flex;
-  flex-direction: column;
-  gap: 10px;           /* space between input & button */
-  align-items: flex-start;  /* also left‑align the input and button */
+  flex-direction: column;     /* stack file input + button */
+  align-items: flex-start;    /* ensure left alignment */
+  gap: 0.5rem;
 }
 
+.uploaded-image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;          /* maintain aspect ratio, fill crop */
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
 /* Make the whole file-input area match the button size */
 .controls input[type="file"] {
   /* remove default padding/appearance so only the button shows */
