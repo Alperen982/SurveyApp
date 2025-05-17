@@ -72,6 +72,9 @@ function CreateSurvey() {
       const docRef = await addDoc(collection(db, `users/${user.uid}/surveys`), surveyData);
       console.log("Anket başarıyla kaydedildi:", docRef.id);
 
+      const userDocRef = doc(db, "users", user.uid);
+      await updateDoc(userDocRef, {surveyCount: increment(1)});
+
       const Link = `${window.location.origin}/users/${user.uid}/surveys/${docRef.id}`;
       console.log("ZORTTİRİ ZORT:", Link)
       const sendSurveyEmails = async () => {

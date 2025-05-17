@@ -18,7 +18,9 @@ function Register() {
       const user=userCredential.user;
       const userData={
         email: email,
-        password: password
+        password: password,
+        profilePicture: "PlaceHolder",
+        surveyCount: 0
       };
       alert("Hesap başarıyla oluşturuldu.");
       const docRef = doc(db, "users", user.uid);
