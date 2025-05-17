@@ -58,28 +58,29 @@ function Home() {
 
   return (
   <div className="upload-container">
-    {img && (
-      <div className="image-preview">
-        <AdvancedImage cldImg={img} className="uploaded-image" />
-      </div>
-    )}
-
-    {/* Controls below the image */}
-    <div className="controls">
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-      />
-
-      <button
-        onClick={handleUpload}
-        disabled={uploading || !file}
-      >
-        {/* no text! */}
-      </button>
+  {img && (
+    <div className="image-preview">
+      <AdvancedImage cldImg={img} className="uploaded-image" />
     </div>
+  )}
+
+  <div className="controls">
+    <input
+      type="file"
+      accept="image/*"
+      onChange={handleFileChange}
+    />
+
+    <button
+      type="button"
+      onClick={handleUpload}
+      disabled={uploading || !file}
+      className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+    >
+      {uploading ? "Yükleniyor…" : "Yükle"}
+    </button>
   </div>
+</div>
 );
 }
 
