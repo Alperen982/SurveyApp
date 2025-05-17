@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { AdvancedImage } from '@cloudinary/react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { auth, db } from '../Firebase/config';
+import { doc, getDoc } from 'firebase/firestore';
 
 function Home() {
   const [userData, setUserData] = useState(null);
