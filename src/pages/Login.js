@@ -1,18 +1,34 @@
 import { useState } from 'react';
 import { signInWithSession} from '../Firebase/config';
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+const navigate = useNavigate();
+const location = useLocation();
+const [error, setError] = useState('');
+
+const params = new URLSearchParams(location.search);
+const redirectTo = params.get('next') || '/Home';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    signInWithSession(email, password).then((user)=> {
-        window.location.href = "/Home";
-    });
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const user = await signInWithSession(email, password);
+    if (user) {
+      navigate(redirectTo);
+    } else {
+      setError("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    setError("Bir hata oluştu. Lütfen tekrar deneyin.");
+  }
+};
 
   return (
     <div className="auth-form">

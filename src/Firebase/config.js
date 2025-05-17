@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, onAuthStateChanged, signOut, browserLocalPersistence} from 'firebase/auth';
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, onAuthStateChanged, signOut, browserLocalPersistence, inMemoryPersistence} from 'firebase/auth';
 import {getFirestore, setDoc, doc, addDoc, collection, query, getDocs, getDoc, deleteDoc, updateDoc} from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -19,7 +19,7 @@ const user = auth.currentUser;
 
 async function signInWithSession(email, password) {
   try {
-    await setPersistence(auth, browserSessionPersistence);
+    await setPersistence(auth, inMemoryPersistence);
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     console.log("Giriş başarılı:", userCredential.user);
     alert("GİRİŞ BAŞARILI");
@@ -31,4 +31,4 @@ async function signInWithSession(email, password) {
   }
 }
 
-export {app, auth, db, doc, setDoc, createUserWithEmailAndPassword, signInWithEmailAndPassword, user, onAuthStateChanged, setPersistence, browserSessionPersistence, browserLocalPersistence, signInWithSession, signOut, addDoc, collection, getAuth, query, getDocs, getDoc, deleteDoc, updateDoc}
+export {app, auth, db, doc, setDoc, createUserWithEmailAndPassword, signInWithEmailAndPassword, user, onAuthStateChanged, setPersistence, inMemoryPersistence ,browserSessionPersistence, browserLocalPersistence, signInWithSession, signOut, addDoc, collection, getAuth, query, getDocs, getDoc, deleteDoc, updateDoc}

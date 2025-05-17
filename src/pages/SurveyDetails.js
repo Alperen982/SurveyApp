@@ -67,6 +67,8 @@ function SurveyDetails() {
                         console.error("Kullanıcı giriş yapmamış.");
                         setError('Anketi Görüntülemek İçin Önce Giriş Yapmalısınız!');
                         console.log(currentUserId)
+                        const currentPath = window.location.pathname;
+                        navigate(`/login?next=${encodeURIComponent(currentPath)}`);
                         return;
                     }
                     if (surveyData.questions && surveyData.questions.length > 0) {
