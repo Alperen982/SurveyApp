@@ -159,7 +159,7 @@ function Home() {
           </div>
         )}
         {showPasswordForm && (
-          <div className="password-form mt-4 bg-gray-100 p-4 rounded flex flex-col space-y-3 w-full">
+          <div className="password-form mt-4 bg-gray-100 p-4 rounded flex flex-col items-center space-y-3 w-full">
             <input
               type="password"
               placeholder="Mevcut Şifre"
