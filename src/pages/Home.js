@@ -16,6 +16,7 @@ function Home() {
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [currentPass, setCurrentPass] = useState('');
   const [newPass, setNewPass] = useState('');
+   const [newPassConfirm, setNewPassConfirm] = useState('');
 
   useEffect(() => {
     // Auth state listener
@@ -191,6 +192,7 @@ function Home() {
              type="password"
              placeholder="Yeni Şifre Tekrar"
              value={newPassConfirm}
+             onChange={(e) => setNewPassConfirm(e.target.value)}
              className="password-input"
            />
             <div className="controls">

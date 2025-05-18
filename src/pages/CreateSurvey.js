@@ -303,6 +303,7 @@ function CreateSurvey() {
         <button
     type="button"
     className="add-email-button"
+    style={{ marginTop: '4px' }}
     onClick={async (e) => {
       const emailInput = e.target.closest('.email-input-container').querySelector('input');
       const email = emailInput.value.trim();
