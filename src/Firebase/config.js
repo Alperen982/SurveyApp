@@ -19,7 +19,7 @@ const user = auth.currentUser;
 
 async function signInWithSession(email, password) {
   try {
-    await setPersistence(auth, inMemoryPersistence);
+    await setPersistence(auth,  browserLocalPersistence);
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     console.log("Giriş başarılı:", userCredential.user);
     alert("GİRİŞ BAŞARILI");
