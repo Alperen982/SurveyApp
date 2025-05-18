@@ -16,7 +16,26 @@ function Home() {
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [currentPass, setCurrentPass] = useState('');
   const [newPass, setNewPass] = useState('');
-   const [newPassConfirm, setNewPassConfirm] = useState('');
+  const [newPassConfirm, setNewPassConfirm] = useState('');
+
+  const getPasswordStrengthMessage = (pwd) => {
+  if (pwd.length < 6) return 'Şifre en az 6 karakter olmalı.';
+  if (!/[A-Z]/.test(pwd)) return 'En az bir büyük harf ekleyin.';
+  if (!/[a-z]/.test(pwd)) return 'En az bir küçük harf ekleyin.';
+  if (!/[0-9]/.test(pwd)) return 'En az bir rakam ekleyin.';
+  if (!/[^A-Za-z0-9]/.test(pwd)) return 'En az bir sembol ekleyin.';
+  return 'Şifreniz güçlü.';
+};
+
+   const isPasswordStrong = (pwd) => {
+  return (
+    pwd.length >= 6 &&
+    /[A-Z]/.test(pwd) &&
+    /[a-z]/.test(pwd) &&
+    /[0-9]/.test(pwd) &&
+    /[^A-Za-z0-9]/.test(pwd)
+  );
+};
 
   useEffect(() => {
     // Auth state listener
@@ -108,6 +127,7 @@ function Home() {
       setShowPasswordForm(false);
       setCurrentPass('');
       setNewPass('');
+      setNewPassConfirm('');
       updateDoc(userDocRef, { password: newPass });
     } catch (error) {
       console.error('Şifre güncelleme hatası:', error);
@@ -188,6 +208,18 @@ function Home() {
              onChange={(e) => setNewPass(e.target.value)}
              className="password-input"
            />
+           <small
+  style={{
+    color: getPasswordStrengthMessage(newPass) === 'Şifreniz güçlü.' ? 'green' : 'red',
+    border: '1px solid',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    display: 'inline-block',
+    marginTop: '4px'
+  }}
+>
+  {getPasswordStrengthMessage(newPass)}
+</small>
            <input
              type="password"
              placeholder="Yeni Şifre Tekrar"
@@ -195,17 +227,38 @@ function Home() {
              onChange={(e) => setNewPassConfirm(e.target.value)}
              className="password-input"
            />
+           {confirmPassword && (
+          <small
+            style={{
+              color: confirmPassword === password ? 'green' : 'red',
+              marginLeft: '8px'
+            }}
+          >
+            {confirmPassword === password
+              ? 'Şifreler eşleşiyor.'
+              : 'Şifreler eşleşmiyor.'}
+          </small>
+        )}
+           {newPassConfirm && (
+            <small style={{ color: newPass === newPassConfirm ? 'green' : 'red' }}>
+              {newPass === newPassConfirm ? 'Şifreler eşleşiyor.' : 'Şifreler eşleşmiyor.'}
+                </small>
+            )}
             <div className="controls">
               <button
                 onClick={() => {
-                   if (newPass === newPassConfirm) {
-                     handlePasswordChange();
-                   } else {
-                     alert('Yeni şifreler eşleşmiyor!');
-                   }
-                 }}
-                className="custom-file-button text-center w-full"
-              >
+                   if (!isPasswordStrong(newPass)) {
+            alert('Lütfen güçlü bir şifre giriniz!');
+            return;
+          }
+          if (newPass !== newPassConfirm) {
+            alert('Yeni şifreler eşleşmiyor!');
+            return;
+          }
+          handlePasswordChange();
+        }}
+        className="custom-file-button text-center w-full"
+      >
                 Şifreyi Güncelle
               </button>
             </div>
