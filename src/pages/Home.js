@@ -152,7 +152,7 @@ function Home() {
             <p><strong>Mail adresi:</strong> {userData.email}</p>
             <button
                 onClick={() => setShowPasswordForm(!showPasswordForm)}
-                className="custom-file-button text-center w-full"
+                className="custom-file-button text-center inline-block px-4 py-2"
               >
                 Şifre Değiştir
               </button>

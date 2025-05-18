@@ -186,6 +186,11 @@ function CreateSurvey() {
   const removeOption = (questionIndex, optionIndex) => {
     const newQuestions = [...questions];
     newQuestions[questionIndex].options.splice(optionIndex, 1);
+
+     if (newQuestions[questionIndex].options.length === 0) {
+    newQuestions.splice(questionIndex, 1);
+  }
+  
     setQuestions(newQuestions);
   };
 
@@ -285,7 +290,7 @@ function CreateSurvey() {
       <input
         type="email"
         placeholder="E-posta adresi girin"
-        className="new-form-input"
+        className="form-input"
         onKeyDown={async (e) => {
           if (e.key === 'Enter' || e.key === ',') {
             e.preventDefault();
