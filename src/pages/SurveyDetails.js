@@ -15,10 +15,13 @@ function SurveyDetails() {
     const navigate = useNavigate();
 
     const auth = getAuth();
-    const [currentUserId, setCurrentUserId] = useState(null);
+    const [currentUserId, setCurrentUserId] = useState(undefined);
+    const [authLoading, setAuthLoading] = useState(true);
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUserId(user ? user.uid : null);
+            setAuthLoading(false);
         });
         return () => unsubscribe();
     }, [auth]);
@@ -56,68 +59,54 @@ function SurveyDetails() {
     }
 
     useEffect(() => {
+        if (authLoading) return;
+
+        if (currentUserId === null) {
+            setError('Anketi Görüntülemek İçin Önce Giriş Yapmalısınız!');
+            const next = encodeURIComponent(window.location.pathname);
+            navigate(`/login?next=${next}`);
+            return;
+        }
+
         const fetchSurveyDetails = async () => {
             if (!userId || !surveyId) {
                 setError('Anket ID veya kullanıcı ID eksik');
                 return;
             }
 
-
-            if (currentUserId === null) {
-                return;
-            }
-        
             try {
                 const surveyDocRef = doc(db, `users/${userId}/surveys/${surveyId}`);
                 const surveyDoc = await getDoc(surveyDocRef);
-        
-                if (surveyDoc.exists()) {
-                    let surveyData = surveyDoc.data();
-                    
-                    if (!currentUserId) {
-                        console.error("Kullanıcı giriş yapmamış.");
-                        setError('Anketi Görüntülemek İçin Önce Giriş Yapmalısınız!');
-                        console.log(currentUserId)
-                        const currentPath = window.location.pathname;
-                        navigate(`/login?next=${encodeURIComponent(currentPath)}`);
-                        return;
-                    }
-                    if (surveyData.questions && surveyData.questions.length > 0) {
-                        surveyData.allowMultiple = surveyData.questions[0].allowMultiple;
-                    } else {
-                        surveyData.allowMultiple = false;
-                    }
-        
-                    setSurvey(surveyData);
-                    if (surveyData.userAnswers && surveyData.userAnswers[currentUserId]) {
-                        setHasAnswered(true);
-                        setUserAnswers(surveyData.userAnswers[currentUserId]);
-                        console.log(currentUserId)
-                    }
-        
-                    if (surveyData.endDate && new Date(surveyData.endDate) < new Date()) {
 
-
-
-                        
-                        setIsSurveyClosed(true);
-                    }
-        
-                    if (surveyData.userId === currentUserId) {
-                        setIsCreator(true);
-                    }
-                } else {
+                if (!surveyDoc.exists()) {
                     setError('Anket bulunamadı');
+                    return;
                 }
-            } catch (error) {
-                console.error('Veri çekme hatası:', error);
+
+                const surveyData = surveyDoc.data();
+                surveyData.allowMultiple = surveyData.questions?.[0]?.allowMultiple ?? false;
+                setSurvey(surveyData);
+
+                if (surveyData.userAnswers?.[currentUserId]) {
+                    setHasAnswered(true);
+                    setUserAnswers(surveyData.userAnswers[currentUserId]);
+                }
+
+                if (surveyData.endDate && new Date(surveyData.endDate) < new Date()) {
+                    setIsSurveyClosed(true);
+                }
+
+                if (surveyData.userId === currentUserId) {
+                    setIsCreator(true);
+                }
+            } catch (err) {
+                console.error('Veri çekme hatası:', err);
                 setError('Anket verisi alınırken bir hata oluştu');
             }
         };
-        
 
         fetchSurveyDetails();
-    }, [userId, surveyId, currentUserId]);
+    }, [userId, surveyId, currentUserId, authLoading, navigate]);
 
     const handleAnswerChange = (qIndex, oIndex) => {
         if (hasAnswered) {
