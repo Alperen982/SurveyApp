@@ -267,7 +267,7 @@ function CreateSurvey() {
         </div>
 
         <div className="form-group">
-          <label>Son Katılım Tarihi:</label>
+          <label>Oy Kullanmak İçin Son Tarih:</label>
           <input
             type="datetime-local"
             value={endDate}
@@ -293,18 +293,6 @@ function CreateSurvey() {
           }
         }}
       />
-      <button
-        type="button"
-        onClick={async (e) => {
-          const input = e.currentTarget.previousElementSibling;
-          const email = input.value.trim();
-          const ok = await tryAddEmail(email);
-          if (ok) input.value = '';
-        }}
-        className="custom-file-button text-center"
-      >
-        Ekle
-      </button>
     </div>
   {emails.length > 0 && (
     <ul className="email-list">
@@ -344,16 +332,6 @@ function CreateSurvey() {
                     />
                     Birden fazla seçim yapılabilsin
                   </label>
-                  <button
-                    type="button"
-                    className="delete-button"
-                    onClick={() => {
-                      const newQuestions = questions.filter((_, i) => i !== qIndex);
-                      setQuestions(newQuestions);
-                    }}
-                  >
-                    Sil
-                  </button>
                 </div>
               </div>
               
@@ -413,7 +391,7 @@ function CreateSurvey() {
                     className="add-option-button"
                     onClick={() => addOption(qIndex)}
                   >
-                    + Seçenek Ekle ({5 - question.options.length} kaldı)
+                    Etkinlik İçin Uygun Zaman Seçenekleri Ekle ({5 - question.options.length} kaldı)
                   </button>
                 )}
               </div>
@@ -422,12 +400,6 @@ function CreateSurvey() {
         </div>
 
         <div className="buttons-container">
-          {questions.length === 0 && (
-            <button type="button" onClick={addQuestion} className="add-button">
-              {!eventDate ? 'Tarih ve Saat Seçenekleri Ekle' : 'Saat Seçenekleri Ekle'}
-            </button>
-          )}
-
           <button type="submit" className="submit-button">
             Etkinliği Oluştur
           </button>
