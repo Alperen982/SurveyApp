@@ -1,34 +1,53 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { auth } from './Firebase/config';
+import { onAuthStateChanged } from 'firebase/auth';
+
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import CreateSurvey from './pages/CreateSurvey';
-import SurveyDetail from './pages/SurveyDetail';
 import Login from './pages/Login';
-import Register from './pages/Register';
-import Surveys from './pages/Surveys';
-import SurveyDetails from './pages/SurveyDetails';
+import Home from './pages/Home';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <div className="container">
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/Home" element={<Home />} />
-            <Route path="/surveys" element={<Surveys />} />
-            <Route path="/users/:userId/surveys/:surveyId" element={<SurveyDetails />} /> {/* Anket detay sayfası */}
-            <Route path="/create-survey" element={<CreateSurvey />} />
-            <Route path="/survey/:id" element={<SurveyDetail />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+    <BrowserRouter>
+      {/* Navbar her zaman görünür */}
+      <Navbar />
+
+      <Routes>
+        {/* Ana route: kullanıcı durumuna göre yönlendir */}
+        <Route
+          path="/"
+          element={
+            user
+              ? <Home />
+              : <Navigate to="/login" replace />
+          }
+        />
+
+        {/* Login sayfası */}
+        <Route
+          path="/login"
+          element={
+            !user
+              ? <Login />
+              : <Navigate to="/" replace />
+          }
+        />
+
+        {/* Diğer rotalar */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App; 
+export default App;
