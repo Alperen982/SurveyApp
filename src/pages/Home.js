@@ -6,14 +6,17 @@ import { AdvancedImage } from '@cloudinary/react';
 import axios from 'axios';
 import { auth, db } from '../Firebase/config';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from 'firebase/auth';
 
 function Home() {
   const [userData, setUserData] = useState(null);
   const [publicId, setPublicId] = useState('PlaceHolder');
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [currentPass, setCurrentPass] = useState('');
+  const [newPass, setNewPass] = useState('');
+  
   useEffect(() => {
     // Auth state listener
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -89,6 +92,26 @@ function Home() {
     }
   };
 
+  const handlePasswordChange = async () => {
+    if (!currentPass || !newPass) {
+      alert('Lütfen tüm alanları doldurun.');
+      return;
+    }
+    const user = auth.currentUser;
+    const cred = EmailAuthProvider.credential(user.email, currentPass);
+    try {
+      await reauthenticateWithCredential(user, cred);
+      await updatePassword(user, newPass);
+      alert('Şifreniz başarıyla güncellendi.');
+      setShowPasswordForm(false);
+      setCurrentPass('');
+      setNewPass('');
+    } catch (error) {
+      console.error('Şifre güncelleme hatası:', error);
+      alert('Şifre güncellenemedi: ' + error.message);
+    }
+  };
+
   if (loading) {
     return <div className="text-center mt-10">Yükleniyor...</div>;
   }
@@ -123,8 +146,38 @@ function Home() {
         {/* Kullanıcı Bilgileri */}
         {userData && (
           <div className="text-center mt-2 text-gray-700">
-            <p><strong>Mail adresi:</strong> {userData.email}</p>
             <p><strong>Oluşturulan Etkinlik Sayısı:</strong> {userData.surveyCount ?? 0}</p>
+            <p><strong>Mail adresi:</strong> {userData.email}</p>
+            <button
+              className="text-blue-600 underline"
+              onClick={() => setShowPasswordForm(!showPasswordForm)}
+            >
+              Şifre Değiştir
+            </button>
+          </div>
+        )}
+        {showPasswordForm && (
+          <div className="password-form mt-4 bg-gray-100 p-4 rounded">
+            <input
+              type="password"
+              placeholder="Mevcut Şifre"
+              value={currentPass}
+              onChange={(e) => setCurrentPass(e.target.value)}
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <input
+              type="password"
+              placeholder="Yeni Şifre"
+              value={newPass}
+              onChange={(e) => setNewPass(e.target.value)}
+              className="w-full mb-2 p-2 border rounded"
+            />
+            <button
+              onClick={handlePasswordChange}
+              className="w-full bg-blue-500 text-white p-2 rounded"
+            >
+              Şifreyi Güncelle
+            </button>
           </div>
         )}
       </div>
