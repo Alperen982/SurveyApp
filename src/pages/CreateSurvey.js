@@ -161,14 +161,14 @@ function CreateSurvey() {
         newQuestion = {
           id: Date.now(),
           type: 'datetime',
-          options: [],
+          options: [initialOption],
           allowMultiple: false
         };
       } else {
         newQuestion = {
           id: Date.now(),
           type: 'time',
-          options: [],
+          options: [initialOption],
           allowMultiple: false
         };
       }
