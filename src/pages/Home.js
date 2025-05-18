@@ -99,6 +99,7 @@ function Home() {
     }
     const user = auth.currentUser;
     const cred = EmailAuthProvider.credential(user.email, currentPass);
+    const userDocRef = doc(db, 'users', currentUser.uid);
     try {
       await reauthenticateWithCredential(user, cred);
       await updatePassword(user, newPass);
