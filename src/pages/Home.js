@@ -16,7 +16,7 @@ function Home() {
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [currentPass, setCurrentPass] = useState('');
   const [newPass, setNewPass] = useState('');
-  
+
   useEffect(() => {
     // Auth state listener
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -106,6 +106,7 @@ function Home() {
       setShowPasswordForm(false);
       setCurrentPass('');
       setNewPass('');
+      updateDoc(userDocRef, { password: newPass });
     } catch (error) {
       console.error('Şifre güncelleme hatası:', error);
       alert('Şifre güncellenemedi: ' + error.message);
@@ -157,20 +158,20 @@ function Home() {
           </div>
         )}
         {showPasswordForm && (
-          <div className="password-form mt-4 bg-gray-100 p-4 rounded">
+          <div className="password-form mt-4 bg-gray-100 p-4 rounded flex flex-col space-y-3 w-full">
             <input
               type="password"
               placeholder="Mevcut Şifre"
               value={currentPass}
               onChange={(e) => setCurrentPass(e.target.value)}
-              className="w-full mb-2 p-2 border rounded"
+              className="w-full p-2 border rounded"
             />
             <input
               type="password"
               placeholder="Yeni Şifre"
               value={newPass}
               onChange={(e) => setNewPass(e.target.value)}
-              className="w-full mb-2 p-2 border rounded"
+              className="w-full p-2 border rounded"
             />
             <button
               onClick={handlePasswordChange}
