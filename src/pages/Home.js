@@ -170,13 +170,13 @@ function Home() {
         {userData && (
   <div className="text-center mt-2 text-gray-700 w-full">
     <div className="flex justify-center">
-      <p className="bg-gray-100 rounded px-4 py-2 text-center inline-block max-w-fit">
+      <p className="bg-gray-100 rounded px-4 py-2 text-center w-max mx-auto">
         <strong>Oluşturulan Etkinlik Sayısı:</strong> {userData.surveyCount ?? 0}
       </p>
     </div>
 
     <div className="flex justify-center mt-2">
-      <p className="bg-gray-100 rounded px-4 py-2 text-center inline-block max-w-fit">
+      <p className="bg-gray-100 rounded px-4 py-2 text-center w-max mx-auto mt-2">
         <strong>Mail adresi:</strong> {userData.email}
       </p>
     </div>
