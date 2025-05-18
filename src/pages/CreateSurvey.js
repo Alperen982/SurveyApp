@@ -152,6 +152,10 @@ function CreateSurvey() {
   const addQuestion = () => {
     if (questions.length < 2) {
       let newQuestion;
+
+      const initialOption = !eventDate
+      ? `${new Date().toISOString().split('T')[0]}T00:00`
+      : `00:00`;
       
       if (!eventDate) {
         newQuestion = {
