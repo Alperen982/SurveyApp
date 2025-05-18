@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db, addDoc, collection, getAuth} from '../Firebase/config';
 import { doc, updateDoc, increment } from 'firebase/firestore';
+import { fetchSignInMethodsForEmail } from 'firebase/auth';
 import axios from "axios";
 
 
