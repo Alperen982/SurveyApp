@@ -80,10 +80,12 @@ function CreateSurvey() {
     return;
   }
 
-    if (questions.length < 2) {
-      setError('En az iki seçenek eklemelisiniz.');
-      return;
-    }
+const totalOptionsCount = questions.reduce((acc, question) => acc + question.options.length, 0);
+
+if (totalOptionsCount < 2) {
+  setError('En az iki seçenek eklemelisiniz.');
+  return;
+}
 
     const auth = getAuth();
     const user = auth.currentUser;
