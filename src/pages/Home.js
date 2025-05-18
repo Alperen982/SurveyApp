@@ -147,17 +147,21 @@ function Home() {
 
         {/* Kullanıcı Bilgileri */}
         {userData && (
-          <div className="text-center mt-2 text-gray-700">
-            <p><strong>Oluşturulan Etkinlik Sayısı:</strong> {userData.surveyCount ?? 0}</p>
-            <p><strong>Mail adresi:</strong> {userData.email}</p>
-            <button
-                onClick={() => setShowPasswordForm(!showPasswordForm)}
-                className="custom-file-button text-center inline-block px-4 py-2"
-              >
-                Şifre Değiştir
-              </button>
-          </div>  
-        )}
+  <div className="text-center mt-2 text-gray-700">
+    <p><strong>Oluşturulan Etkinlik Sayısı:</strong> {userData.surveyCount ?? 0}</p>
+    <p><strong>Mail adresi:</strong> {userData.email}</p>
+    
+    <div className="controls">
+      <button
+        onClick={() => setShowPasswordForm(!showPasswordForm)}
+        className="custom-file-button text-center inline-block px-4 py-2"
+      >
+        Şifre Değiştir
+      </button>
+    </div>
+  </div>
+)}
+
         {showPasswordForm && (
           <div className="password-inputs">
              <input

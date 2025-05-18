@@ -190,7 +190,7 @@ function CreateSurvey() {
      if (newQuestions[questionIndex].options.length === 0) {
     newQuestions.splice(questionIndex, 1);
   }
-  
+
     setQuestions(newQuestions);
   };
 
@@ -309,7 +309,6 @@ function CreateSurvey() {
       if (email) {
         const ok = await tryAddEmail(email);
         if (ok) {
-          setEmails((prev) => [...prev, email]);
           emailInput.value = '';
         }
       }

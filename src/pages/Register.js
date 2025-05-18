@@ -17,8 +17,25 @@ function Register() {
   return 'Şifreniz güçlü.';
 };
 
-  const handleSubmit = (e) => {
+   const isPasswordStrong = (pwd) => {
+  return (
+    pwd.length >= 6 &&
+    /[A-Z]/.test(pwd) &&
+    /[a-z]/.test(pwd) &&
+    /[0-9]/.test(pwd) &&
+    /[^A-Za-z0-9]/.test(pwd)
+  );
+};
+
+    const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!isPasswordStrong(password)) {
+      console.log(getPasswordStrengthMessage(password));
+      alert('Lütfen daha güçlü bir şifre giriniz!');
+      return;
+    }
+    
     if (password !== confirmPassword) {
       alert('Şifreler eşleşmiyor!');
       return;
@@ -80,7 +97,7 @@ function Register() {
             required
           />
           <small
-          style={{ color: getPasswordStrengthMessage(password) === 'Şifreniz güçlü.' ? 'green' : 'red' }}
+          style={{ color: getPasswordStrengthMessage(password) === 'Şifreniz güçlü.' ? 'green' : 'red', marginLeft: '8px' }}
           >
           {getPasswordStrengthMessage(password)}
         </small>
@@ -94,11 +111,6 @@ function Register() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <small
-          style={{ color: getPasswordStrengthMessage(password) === 'Şifreniz güçlü.' ? 'green' : 'red' }}
-        >
-        {getPasswordStrengthMessage(password)}
-        </small>
         </div>
         <button type="submit">Kayıt Ol</button>
       </form>
