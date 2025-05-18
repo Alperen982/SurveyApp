@@ -385,21 +385,22 @@ function CreateSurvey() {
                     </button>
                   </div>
                 ))}
-                {question.options.length < 5 && (
-                  <button
-                    type="button"
-                    className="add-option-button"
-                    onClick={() => addOption(qIndex)}
-                  >
-                    Etkinlik İçin Uygun Zaman Seçenekleri Ekle ({5 - question.options.length} kaldı)
-                  </button>
-                )}
               </div>
             </div>
           ))}
         </div>
-
         <div className="buttons-container">
+        <button
+        type="button"
+        className="add-option-button"
+        onClick={() => {if (questions.length === 0) {
+                addQuestion();
+                setTimeout(() => addOption(0), 0);} 
+                else {
+                addOption(0);
+              }
+            }}>+ Etkinlik İçin Uygun Zaman Seçenekleri Ekle
+          </button>
           <button type="submit" className="submit-button">
             Etkinliği Oluştur
           </button>
