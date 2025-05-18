@@ -106,12 +106,16 @@ function Home() {
       </div>
 
       {/* Kullanıcı Bilgileri */}
-      {userData && (
-        <div className="text-center mt-2 text-gray-700">
-          <p><strong>Mail adresi:</strong> {userData.email}</p>
-          <p><strong>Oluşturulan Anket Sayısı:</strong> {userData.surveyCount ?? 0}</p>
-        </div>
-      )}
+      <div className="text-center mt-2 text-gray-700">
+      <p>
+      <strong>Mail adresi:</strong>{' '}
+      {userData?.email ?? 'Yükleniyor…'}
+      </p>
+      <p>
+      <strong>Oluşturulan Anket Sayısı:</strong>{' '}
+      {userData?.surveyCount ?? 0}
+      </p>
+      </div>
     </div>
   </div>
 );
