@@ -25,7 +25,7 @@ function Surveys() {
                 setSurveys(surveysList);
             } catch (error) {
                 console.error("Veri çekme hatası:", error);
-                setError('Anketler alınırken bir hata oluştu');
+                setError('Etkinlikler alınırken bir hata oluştu');
             }
         };
 
@@ -38,9 +38,9 @@ function Surveys() {
 
     return (
         <div className="surveys-page">
-            <h2>Oluşturduğun Anketler</h2>
+            <h2>Oluşturduğun Etkinlikler</h2>
             {surveys.length === 0 ? (
-                <p>Henüz oluşturduğunuz anket yok.</p> 
+                <p>Henüz oluşturduğunuz etkinlik yok.</p> 
             ) : (
                 <div className="survey-container">
                     {surveys.map(survey => (

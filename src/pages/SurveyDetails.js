@@ -14,8 +14,13 @@ function SurveyDetails() {
     const navigate = useNavigate();
 
     const auth = getAuth();
-    const user = auth.currentUser;
-    const currentUserId = user ? user.uid : null;
+    const [currentUserId, setCurrentUserId] = useState(null);
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setCurrentUserId(user ? user.uid : null);
+        });
+        return () => unsubscribe();
+    }, [auth]);
 
     function formatDate(dateStr, eventDate) {
         let date;
@@ -55,6 +60,11 @@ function SurveyDetails() {
                 setError('Anket ID veya kullanıcı ID eksik');
                 return;
             }
+
+
+            if (currentUserId === null) {
+                return;
+            }
         
             try {
                 const surveyDocRef = doc(db, `users/${userId}/surveys/${surveyId}`);
@@ -63,7 +73,7 @@ function SurveyDetails() {
                 if (surveyDoc.exists()) {
                     let surveyData = surveyDoc.data();
                     
-                    if (currentUserId === null) {
+                    if (!currentUserId) {
                         console.error("Kullanıcı giriş yapmamış.");
                         setError('Anketi Görüntülemek İçin Önce Giriş Yapmalısınız!');
                         console.log(currentUserId)
