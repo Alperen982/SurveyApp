@@ -111,6 +111,19 @@ function Register() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          {confirmPassword && (
+          <small
+            style={{
+              color: confirmPassword === password ? 'green' : 'red',
+              marginLeft: '8px'
+            }}
+          >
+            {confirmPassword === password
+              ? 'Şifreler eşleşiyor.'
+              : 'Şifreler eşleşmiyor.'}
+          </small>
+        )}
+
         </div>
         <button type="submit">Kayıt Ol</button>
       </form>

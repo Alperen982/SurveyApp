@@ -772,6 +772,35 @@ body {
   margin: 0 auto; /* ortaya hizalama */
 }
 
+.email-input-container {
+  display: flex;
+  gap: 8px; /* input ile buton arasına boşluk */
+  align-items: center;
+}
+
+.new-form-input {
+  flex-grow: 1; /* input genişliği butondan fazla olsun */
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.add-email-button {
+  padding: 8px 16px;
+  background-color: #4a90e2;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.add-email-button:hover {
+  background-color: #357ABD;
+}
+
 .password-input {
   padding: 10px 14px;
   border: 1.5px solid #ccc;
@@ -1071,6 +1100,26 @@ h2, h3, h4 {
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 12px;
   margin-top: 16px;
+}
+
+.password-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.password-field label {
+  min-width: 70px; /* İstersen ayarla */
+}
+
+.password-field small.strong {
+  color: green;
+  white-space: nowrap;
+}
+
+.password-field small.weak {
+  color: red;
+  white-space: nowrap;
 }
 
 /* Datetime seçenekleri için alt alta düzen */

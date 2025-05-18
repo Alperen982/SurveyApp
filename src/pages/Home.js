@@ -147,7 +147,7 @@ function Home() {
 
         {/* Kullanıcı Bilgileri */}
         {userData && (
-  <div className="text-center mt-2 text-gray-700">
+  <div className="controls">
     <p><strong>Oluşturulan Etkinlik Sayısı:</strong> {userData.surveyCount ?? 0}</p>
     <p><strong>Mail adresi:</strong> {userData.email}</p>
     
