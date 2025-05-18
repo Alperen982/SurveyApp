@@ -151,11 +151,11 @@ function Home() {
             <p><strong>Oluşturulan Etkinlik Sayısı:</strong> {userData.surveyCount ?? 0}</p>
             <p><strong>Mail adresi:</strong> {userData.email}</p>
             <button
-              className="text-blue-600 underline"
-              onClick={() => setShowPasswordForm(!showPasswordForm)}
-            >
-              Şifre Değiştir
-            </button>
+                onClick={() => setShowPasswordForm(!showPasswordForm)}
+                className="custom-file-button text-center"
+              >
+                Şifre Değiştir
+              </button>
           </div>
         )}
         {showPasswordForm && (
@@ -174,12 +174,14 @@ function Home() {
               onChange={(e) => setNewPass(e.target.value)}
               className="w-full p-2 border rounded"
             />
-            <button
-              onClick={handlePasswordChange}
-              className="w-full bg-blue-500 text-white p-2 rounded"
-            >
-              Şifreyi Güncelle
-            </button>
+            <div className="controls">
+              <button
+                onClick={handlePasswordChange}
+                className="custom-file-button text-center w-full"
+              >
+                Şifreyi Güncelle
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -5,6 +5,8 @@ import { db, addDoc, collection, getAuth} from '../Firebase/config';
 import { doc, updateDoc, increment } from 'firebase/firestore';
 import axios from "axios";
 
+
+
 function CreateSurvey() {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
@@ -19,6 +21,39 @@ function CreateSurvey() {
   const [copySuccess, setCopySuccess] = useState('');
   const [emails, setEmails] = useState([]);
 
+  const auth = getAuth();
+
+  const tryAddEmail = async (email) => {
+    // 1️⃣ Boşsa zaten hata
+    if (!email) {
+      setError('Lütfen bir e‑posta giriniz');
+      return false;
+    }
+    try {
+      await fetchSignInMethodsForEmail(auth, email);
+    } catch (err) {
+      if (err.code === 'auth/invalid-email') {
+        setError('Geçersiz e‑posta formatı');
+        return false;
+      }
+      // Diğer hatalara dilerseniz farklı mesaj verebilirsiniz
+      setError('E‑posta doğrulaması sırasında hata oluştu');
+      return false;
+    }
+
+    // 3️⃣ Kopya kontrolü
+    if (emails.includes(email)) {
+      setError('Bu e‑posta zaten listede');
+      return false;
+    }
+
+    // Geçtiyse ekle ve hata mesajını temizle
+    setEmails([...emails, email]);
+    setError('');
+    return true;
+  };
+
+
   const eventTypes = [
     { value: 'Parti/Kutlama', label: 'Parti/Kutlama' },
     { value: 'Piknik', label: 'Piknik' },
@@ -27,6 +62,8 @@ function CreateSurvey() {
     { value: 'Oyun Gecesi', label: 'Oyun Gecesi' },
     { value: 'Diğer', label: 'Diğer' }
   ];
+
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,8 +74,13 @@ function CreateSurvey() {
       return;
     }
 
-    if (questions.length === 0) {
-      setError('En az bir soru eklemelisiniz');
+    if (emails.length === 0) {
+    setError('Lütfen en az bir e‑posta ekleyin');
+    return;
+  }
+
+    if (questions.length < 2) {
+      setError('En az iki seçenek eklemelisiniz.');
       return;
     }
 
@@ -68,6 +110,7 @@ function CreateSurvey() {
   cevap4: 0,
   cevap5: 0,
 };
+
 
     try {
       const docRef = await addDoc(collection(db, `users/${user.uid}/surveys`), surveyData);
@@ -112,7 +155,6 @@ function CreateSurvey() {
       if (!eventDate) {
         newQuestion = {
           id: Date.now(),
-          text: 'Hangi tarihte müsaitsiniz?',
           type: 'datetime',
           options: [],
           allowMultiple: false
@@ -120,7 +162,6 @@ function CreateSurvey() {
       } else {
         newQuestion = {
           id: Date.now(),
-          text: 'Hangi tarihte müsaitsiniz?',
           type: 'time',
           options: [],
           allowMultiple: false
@@ -235,64 +276,35 @@ function CreateSurvey() {
             required
           />
         </div>
-
-        <div className="form-group">
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={!!eventDate}
-              onChange={(e) => {
-                if (!e.target.checked) {
-                  setEventDate('');
-                } else {
-                  setEventDate(new Date().toISOString().split('T')[0]);
-                }
-              }}
-            />
-            Etkinlik Tarihi Belirle
-          </label>
-          {!!eventDate && (
-            <input
-              type="date"
-              value={eventDate}
-              onChange={(e) => setEventDate(e.target.value)}
-              className="form-input"
-              min={new Date().toISOString().split('T')[0]}
-            />
-          )}
-        </div>
         <div className="form-group">
   <label>E-posta Listesi:</label>
   <div className="email-input-container">
-    <input
-      type="email"
-      placeholder="E-posta adresi girin"
-      className="form-input"
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ',') {
-          e.preventDefault();
-          const email = e.target.value.trim();
-          if (email && !emails.includes(email)) {
-            setEmails([...emails, email]);
+      <input
+        type="email"
+        placeholder="E-posta adresi girin"
+        className="form-input"
+        onKeyDown={async (e) => {
+          if (e.key === 'Enter' || e.key === ',') {
+            e.preventDefault();
+            const email = e.target.value.trim().replace(/,$/, '');
+            const ok = await tryAddEmail(email);
+            if (ok) e.target.value = '';
           }
-          e.target.value = '';
-        }
-      }}
-    />
-    <button
-      type="button"
-      onClick={(e) => {
-        const emailInput = e.target.previousElementSibling;
-        const email = emailInput.value.trim();
-        if (email && !emails.includes(email)) {
-          setEmails([...emails, email]);
-        }
-        emailInput.value = '';
-      }}
-    >
-      Ekle
-    </button>
-  </div>
+        }}
+      />
+      <button
+        type="button"
+        onClick={async (e) => {
+          const input = e.currentTarget.previousElementSibling;
+          const email = input.value.trim();
+          const ok = await tryAddEmail(email);
+          if (ok) input.value = '';
+        }}
+        className="custom-file-button text-center"
+      >
+        Ekle
+      </button>
+    </div>
   {emails.length > 0 && (
     <ul className="email-list">
       {emails.map((email, index) => (
