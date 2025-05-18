@@ -147,9 +147,18 @@ function Home() {
 
         {/* Kullanıcı Bilgileri */}
         {userData && (
-  <div className="controls">
-    <p><strong>Oluşturulan Etkinlik Sayısı:</strong> {userData.surveyCount ?? 0}</p>
-    <p><strong>Mail adresi:</strong> {userData.email}</p>
+  <div className="text-center mt-2 text-gray-700 w-full">
+    <div className="flex justify-center">
+      <p className="bg-gray-100 rounded px-4 py-2 inline-block">
+        <strong>Oluşturulan Etkinlik Sayısı:</strong> {userData.surveyCount ?? 0}
+      </p>
+    </div>
+
+    <div className="flex justify-center mt-2">
+      <p className="bg-gray-100 rounded px-4 py-2 inline-block">
+        <strong>Mail adresi:</strong> {userData.email}
+      </p>
+    </div>
     
     <div className="controls">
       <button
