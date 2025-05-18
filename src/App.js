@@ -1,51 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { auth } from './Firebase/config';
-import { onAuthStateChanged } from 'firebase/auth';
-
-import Login from './pages/Login';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import CreateSurvey from './pages/CreateSurvey';
+import SurveyDetail from './pages/SurveyDetail';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Surveys from './pages/Surveys';
+import SurveyDetails from './pages/SurveyDetails';
 
 function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  if (loading) {
-    return <div className="text-center mt-10">Yükleniyor...</div>;
-  }
-
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* PublicRoute: login sayfası */}
-        <Route
-          path="/login"
-          element={
-            !user ? <Login /> : <Navigate to="/" replace />
-          }
-        />
-
-        {/* ProtectedRoute: ana sayfa */}
-        <Route
-          path="/"
-          element={
-            user ? <Home /> : <Navigate to="/login" replace />
-          }
-        />
-
-        {/* 404 veya diğer sayfalar */}
-        <Route path="*" element={<Navigate to={user ? "/" : "/login"} replace />} />
-      </Routes>
-    </BrowserRouter>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/surveys" element={<Surveys />} />
+            <Route path="/users/:userId/surveys/:surveyId" element={<SurveyDetails />} /> {/* Anket detay sayfası */}
+            <Route path="/create-survey" element={<CreateSurvey />} />
+            <Route path="/survey/:id" element={<SurveyDetail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 
-export default App;
+export default App; 
