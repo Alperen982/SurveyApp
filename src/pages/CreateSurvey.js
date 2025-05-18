@@ -315,7 +315,13 @@ function CreateSurvey() {
 
         <div className="questions-section">
           <h3>Seçenekler</h3>
-          {questions.map((question, qIndex) => (
+          
+          {questions.length === 0 ? (
+    <div className="empty-question-message">
+      Henüz seçenek eklenmedi. Aşağıdan seçenek ekleyerek başlayabilirsiniz.
+    </div>
+  ) : ( 
+          questions.map((question, qIndex) => (
             <div key={question.id} className="question-card">
               <div className="question-header">
                 <h4>{question.text}</h4>
@@ -387,7 +393,7 @@ function CreateSurvey() {
                 ))}
               </div>
             </div>
-          ))}
+          )))}
         </div>
         <div className="buttons-container">
         <button
@@ -399,7 +405,7 @@ function CreateSurvey() {
                 else {
                 addOption(0);
               }
-            }}>+ Etkinlik İçin Uygun Zaman Seçenekleri Ekle
+            }}>Etkinlik İçin Uygun Zaman Seçenekleri Ekle
           </button>
           <button type="submit" className="submit-button">
             Etkinliği Oluştur
