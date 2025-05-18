@@ -285,7 +285,7 @@ function CreateSurvey() {
       <input
         type="email"
         placeholder="E-posta adresi girin"
-        className="form-input"
+        className="new-form-input"
         onKeyDown={async (e) => {
           if (e.key === 'Enter' || e.key === ',') {
             e.preventDefault();
@@ -295,20 +295,23 @@ function CreateSurvey() {
           }
         }}
       />
-       <button
-  type="button"
-  className="add-email-button"
-  onClick={(e) => {
-    const emailInput = e.target.closest('.email-input-container').querySelector('input');
-    const email = emailInput.value.trim();
-    if (email && !emails.includes(email)) {
-      setEmails([...emails, email]);
-    }
-    emailInput.value = '';
-  }}
->
-  <span>➕</span> Ekle
-</button>
+        <button
+    type="button"
+    className="add-email-button"
+    onClick={async (e) => {
+      const emailInput = e.target.closest('.email-input-container').querySelector('input');
+      const email = emailInput.value.trim();
+      if (email) {
+        const ok = await tryAddEmail(email);
+        if (ok) {
+          setEmails((prev) => [...prev, email]);
+          emailInput.value = '';
+        }
+      }
+    }}
+  >
+   Ekle
+  </button>
     </div>
   {emails.length > 0 && (
     <ul className="email-list">

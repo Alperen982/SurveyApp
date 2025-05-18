@@ -8,6 +8,15 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const getPasswordStrengthMessage = (pwd) => {
+  if (pwd.length < 6) return 'Şifre en az 6 karakter olmalı.';
+  if (!/[A-Z]/.test(pwd)) return 'En az bir büyük harf ekleyin.';
+  if (!/[a-z]/.test(pwd)) return 'En az bir küçük harf ekleyin.';
+  if (!/[0-9]/.test(pwd)) return 'En az bir rakam ekleyin.';
+  if (!/[^A-Za-z0-9]/.test(pwd)) return 'En az bir sembol ekleyin.';
+  return 'Şifreniz güçlü.';
+};
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -70,6 +79,11 @@ function Register() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <small
+          style={{ color: getPasswordStrengthMessage(password) === 'Şifreniz güçlü.' ? 'green' : 'red' }}
+          >
+          {getPasswordStrengthMessage(password)}
+        </small>
         </div>
         <div className="form-group">
           <label>Şifre Tekrar:</label>
@@ -80,6 +94,11 @@ function Register() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          <small
+          style={{ color: getPasswordStrengthMessage(password) === 'Şifreniz güçlü.' ? 'green' : 'red' }}
+        >
+        {getPasswordStrengthMessage(password)}
+        </small>
         </div>
         <button type="submit">Kayıt Ol</button>
       </form>
