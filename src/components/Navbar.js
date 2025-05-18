@@ -37,7 +37,7 @@ function Navbar() {
         <div className="container">
           <div className="nav-logo">SurveyApp</div>
           <div className="nav-links">
-            <Link to="/Home" className="nav-link">Ana Sayfa</Link>
+            <Link to="/Home" className="nav-link">Profil</Link>
             <Link to="/surveys" className="nav-link">Etkinliklerim</Link>
             <Link to="/create-survey" className="nav-link">Etkinlik Oluştur</Link>
             <a href="/login" className="nav-link" onClick={handleLogout}>
