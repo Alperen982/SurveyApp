@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { signInWithSession} from '../Firebase/config';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { signInWithSession } from '../Firebase/config';
 
 function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const redirectTo = new URLSearchParams(location.search).get('next') || '/Home';
+
+  const params = new URLSearchParams(location.search);
+  const redirectTo = params.get('next') || '/Home';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showError, setShowError] = useState(false);
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const user = await signInWithSession(email, password);
@@ -34,28 +39,40 @@ function Login() {
     }
   };
 
+  const closePopup = () => {
+    setShowError(false);
+  };
+
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
-        <h2>Login</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Giriş Yap</button>
+    <div className="auth-form">
+      <h2>Giriş Yap</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Email:</label>
+          <input
+            id = "lMail"
+            type="email"
+            value={email}
+            placeholder="Mail adresinizi giriniz."
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Şifre:</label>
+          <input
+            id = "lPassword"
+            type="password"
+            value={password}
+            placeholder="Şifrenizi giriniz."
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submitLogin">Giriş Yap</button>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Login; 
