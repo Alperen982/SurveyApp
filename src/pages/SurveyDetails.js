@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db, doc, getDoc, updateDoc, deleteDoc, getAuth } from '../Firebase/config';
+import { onAuthStateChanged } from 'firebase/auth';
 
 function SurveyDetails() {
     const [survey, setSurvey] = useState(null);
