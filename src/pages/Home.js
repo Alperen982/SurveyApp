@@ -230,11 +230,11 @@ function Home() {
            {confirmPassword && (
           <small
             style={{
-              color: confirmPassword === password ? 'green' : 'red',
+              color: newPass === newPassConfirm ? 'green' : 'red',
               marginLeft: '8px'
             }}
           >
-            {confirmPassword === password
+            {newPass === newPassConfirm
               ? 'Şifreler eşleşiyor.'
               : 'Şifreler eşleşmiyor.'}
           </small>
