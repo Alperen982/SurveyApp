@@ -152,28 +152,28 @@ function Home() {
             <p><strong>Mail adresi:</strong> {userData.email}</p>
             <button
                 onClick={() => setShowPasswordForm(!showPasswordForm)}
-                className="custom-file-button text-center"
+                className="custom-file-button text-center w-full"
               >
                 Şifre Değiştir
               </button>
-          </div>
+          </div>  
         )}
         {showPasswordForm && (
-          <div className="password-form mt-4 bg-gray-100 p-4 rounded flex flex-col items-center space-y-3 w-full">
-            <input
-              type="password"
-              placeholder="Mevcut Şifre"
-              value={currentPass}
-              onChange={(e) => setCurrentPass(e.target.value)}
-              className="w-full p-2 border rounded"
-            />
-            <input
-              type="password"
-              placeholder="Yeni Şifre"
-              value={newPass}
-              onChange={(e) => setNewPass(e.target.value)}
-              className="w-full p-2 border rounded"
-            />
+          <div className="password-inputs">
+             <input
+             type="password"
+             placeholder="Mevcut Şifre"
+             value={currentPass}
+             onChange={(e) => setCurrentPass(e.target.value)}
+             className="password-input"
+              />
+           <input
+             type="password"
+             placeholder="Yeni Şifre"
+             value={newPass}
+             onChange={(e) => setNewPass(e.target.value)}
+             className="password-input"
+           />
             <div className="controls">
               <button
                 onClick={handlePasswordChange}

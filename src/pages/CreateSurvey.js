@@ -295,6 +295,20 @@ function CreateSurvey() {
           }
         }}
       />
+       <button
+  type="button"
+  className="add-email-button"
+  onClick={(e) => {
+    const emailInput = e.target.closest('.email-input-container').querySelector('input');
+    const email = emailInput.value.trim();
+    if (email && !emails.includes(email)) {
+      setEmails([...emails, email]);
+    }
+    emailInput.value = '';
+  }}
+>
+  <span>➕</span> Ekle
+</button>
     </div>
   {emails.length > 0 && (
     <ul className="email-list">
@@ -316,87 +330,90 @@ function CreateSurvey() {
 </div>
 
         <div className="questions-section">
-          <h3>Seçenekler</h3>
-          
-          {questions.length === 0 ? (
+  <h3>Seçenekler</h3>
+  
+  {questions.length === 0 ? (
     <div className="empty-question-message">
       Henüz seçenek eklenmedi. Aşağıdan seçenek ekleyerek başlayabilirsiniz.
     </div>
-  ) : ( 
-          questions.map((question, qIndex) => (
-            <div key={question.id} className="question-card">
-              <div className="question-header">
-                <h4>{question.text}</h4>
-                <div className="question-actions">
-                  <label className="checkbox-label">
+  ) : (
+    questions.map((question, qIndex) => (
+      <div key={question.id} className="question-card">
+        <div className="question-header">
+          <h4>{question.text}</h4>
+          <div className="question-actions">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={question.allowMultiple}
+                onChange={(e) => {
+                  const newQuestions = [...questions];
+                  newQuestions[qIndex].allowMultiple = e.target.checked;
+                  setQuestions(newQuestions);
+                }}
+              />
+              Birden fazla seçim yapılabilsin
+            </label>
+          </div>
+        </div>
+
+        {question.options.length > 0 && (
+          <div className="options-container">
+            {question.options.map((option, oIndex) => (
+              <div key={oIndex} className="option-item">
+                {question.type === 'datetime' ? (
+                  <div className="datetime-inputs">
                     <input
-                      type="checkbox"
-                      checked={question.allowMultiple}
+                      type="date"
+                      value={option.split('T')[0] || ''}
                       onChange={(e) => {
                         const newQuestions = [...questions];
-                        newQuestions[qIndex].allowMultiple = e.target.checked;
+                        const time = option.split('T')[1] || '00:00';
+                        newQuestions[qIndex].options[oIndex] = `${e.target.value}T${time}`;
                         setQuestions(newQuestions);
                       }}
+                      className="form-input"
+                      min={new Date().toISOString().split('T')[0]}
                     />
-                    Birden fazla seçim yapılabilsin
-                  </label>
-                </div>
-              </div>
-              
-              <div className="options-container">
-                {question.options.map((option, oIndex) => (
-                  <div key={oIndex} className="option-item">
-                    {question.type === 'datetime' ? (
-                      <div className="datetime-inputs">
-                        <input
-                          type="date"
-                          value={option.split('T')[0] || ''}
-                          onChange={(e) => {
-                            const newQuestions = [...questions];
-                            const time = option.split('T')[1] || '00:00';
-                            newQuestions[qIndex].options[oIndex] = `${e.target.value}T${time}`;
-                            setQuestions(newQuestions);
-                          }}
-                          className="form-input"
-                          min={new Date().toISOString().split('T')[0]}
-                        />
-                        <input
-                          type="time"
-                          value={option.split('T')[1] || ''}
-                          onChange={(e) => {
-                            const newQuestions = [...questions];
-                            const date = option.split('T')[0] || new Date().toISOString().split('T')[0];
-                            newQuestions[qIndex].options[oIndex] = `${date}T${e.target.value}`;
-                            setQuestions(newQuestions);
-                          }}
-                          className="form-input"
-                        />
-                      </div>
-                    ) : (
-                      <input
-                        type="time"
-                        value={option}
-                        onChange={(e) => {
-                          const newQuestions = [...questions];
-                          newQuestions[qIndex].options[oIndex] = e.target.value;
-                          setQuestions(newQuestions);
-                        }}
-                        className="form-input"
-                      />
-                    )}
-                    <button
-                      type="button"
-                      className="delete-option-button"
-                      onClick={() => removeOption(qIndex, oIndex)}
-                    >
-                      ×
-                    </button>
+                    <input
+                      type="time"
+                      value={option.split('T')[1] || ''}
+                      onChange={(e) => {
+                        const newQuestions = [...questions];
+                        const date = option.split('T')[0] || new Date().toISOString().split('T')[0];
+                        newQuestions[qIndex].options[oIndex] = `${date}T${e.target.value}`;
+                        setQuestions(newQuestions);
+                      }}
+                      className="form-input"
+                    />
                   </div>
-                ))}
+                ) : (
+                  <input
+                    type="time"
+                    value={option}
+                    onChange={(e) => {
+                      const newQuestions = [...questions];
+                      newQuestions[qIndex].options[oIndex] = e.target.value;
+                      setQuestions(newQuestions);
+                    }}
+                    className="form-input"
+                  />
+                )}
+                <button
+                  type="button"
+                  className="delete-option-button"
+                  onClick={() => removeOption(qIndex, oIndex)}
+                >
+                  ×
+                </button>
               </div>
-            </div>
-          )))}
-        </div>
+            ))}
+          </div>
+        )}
+      </div>
+    ))
+  )}
+</div>
         <div className="buttons-container">
         <button
         type="button"
@@ -407,7 +424,7 @@ function CreateSurvey() {
                 else {
                 addOption(0);
               }
-            }}>Etkinlik İçin Uygun Zaman Seçenekleri Ekle
+            }}>Etkinlik İçin Uygun Zaman Seçenekleri Ekle. (En fazla 5 tane ekleyebilirsiniz.)
           </button>
           <button type="submit" className="submit-button">
             Etkinliği Oluştur

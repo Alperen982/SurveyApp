@@ -764,6 +764,33 @@ body {
   font-size: 18px;
 }
 
+.password-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* inputlar arası boşluk */
+  max-width: 320px; /* genişlik sınırı */
+  margin: 0 auto; /* ortaya hizalama */
+}
+
+.password-input {
+  padding: 10px 14px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+.password-input::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.password-input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
 .add-option-button {
   background: var(--primary-color);
   color: white;
