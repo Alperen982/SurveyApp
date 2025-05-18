@@ -43,6 +43,46 @@ body {
   /* your existing 300×300 styling */
 }
 
+/* styles.css */
+.user-info {
+  text-align: center;
+  margin-top: 0.5rem;       /* mt-2 */
+  color: #4B5563;           /* text-gray-700 */
+  width: 100%;
+}
+
+.user-info__row {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;       /* mt-2 (ikinci satır için) */
+}
+
+.user-info__item {
+  background-color: #F3F4F6; /* bg-gray-100 */
+  border-radius: 0.25rem;    /* rounded */
+  padding: 0.5rem 1rem;      /* px-4 py-2 */
+  text-align: center;
+  max-width: fit-content;
+}
+
+.user-info__controls {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.btn--file-toggle {
+  display: inline-block;
+  padding: 0.5rem 1rem;      /* px-4 py-2 */
+  cursor: pointer;
+  border: none;
+  background: #E5E7EB;       /* bg-gray-200 */
+  border-radius: 0.25rem;
+  transition: background 0.2s;
+}
+.btn--file-toggle:hover {
+  background: #D1D5DB;       /* hover bg-gray-300 */
+}
+
 .uploaded-image {
   width: 300px;
   height: 300px;
