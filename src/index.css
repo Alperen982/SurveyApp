@@ -35,7 +35,7 @@ body {
 .upload-container {
   display: flex;
   flex-direction: column;    /* stack image then controls */  
-  align-items: flex-start;   /* keep everything left‑aligned by default */
+  align-items: center;   /* keep everything left‑aligned by default */
   padding: 1rem;
 }
 
