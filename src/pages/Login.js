@@ -12,22 +12,29 @@ function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showError, setShowError] = useState(false);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const user = await signInWithSession(email, password);
-    if (user) {
-      navigate(redirectTo);
-    } else {
-      setError("Giriş başarısız. Lütfen bilgilerinizi kontrol edin.");
+    e.preventDefault();
+    try {
+      const user = await signInWithSession(email, password);
+      if (user) {
+        navigate(redirectTo);
+      } else {
+        setErrorMessage('Giriş başarısız. Lütfen bilgilerinizi kontrol edin.');
+        setShowError(true);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrorMessage('Bir hata oluştu. Lütfen tekrar deneyin.');
+      setShowError(true);
     }
-  } catch (error) {
-    console.error("Login error:", error);
-    setError("Bir hata oluştu. Lütfen tekrar deneyin.");
-  }
-};
+  };
+
+  const closePopup = () => {
+    setShowError(false);
+  };
 
   return (
     <div className="auth-form">
