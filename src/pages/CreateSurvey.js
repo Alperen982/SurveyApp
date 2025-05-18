@@ -98,7 +98,7 @@ function CreateSurvey() {
       handleSendEmails(Link);
 
       alert('Etkinlik başarıyla oluşturuldu!');
-      navigate('/');
+      navigate('/surveys');
     } catch (error) {
       console.error("Hata oluştu:", error);
       setError('Anket kaydedilirken bir hata oluştu');
