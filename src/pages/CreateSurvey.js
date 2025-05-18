@@ -86,6 +86,27 @@ if (totalOptionsCount < 2) {
   setError('En az iki seçenek eklemelisiniz.');
   return;
 }
+const areDatesValid = questions.every(question =>
+  question.options.every(option => {
+    // option boş değil, geçerli tarih olmalı
+    if (!option) return false;
+    const optionDate = new Date(option);
+    if (isNaN(optionDate.getTime())) return false;
+    
+    // minimum tarih belirlenmişse, optionDate bu tarihten küçük olmamalı
+    if (endDate) {
+      const minDate = new Date(endDate);
+      if (optionDate < minDate) return false;
+    }
+    
+    return true;
+  })
+);
+
+if (!areDatesValid) {
+  setError('Lütfen geçerli tüm tarih ve saatleri giriniz ve belirtilen tarihten önce olmasın.');
+  return;
+}
 
     const auth = getAuth();
     const user = auth.currentUser;
