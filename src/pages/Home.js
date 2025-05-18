@@ -167,24 +167,24 @@ function Home() {
         </div>
 
         {/* Kullanıcı Bilgileri */}
-        {userData && (
-  <div className="text-center mt-2 text-gray-700 w-full">
-    <div className="flex justify-center">
-      <p className="bg-gray-100 rounded px-4 py-2 center-text">
+       {userData && (
+  <div className="user-info">
+    <div className="user-info__row">
+      <p className="user-info__item">
         <strong>Oluşturulan Etkinlik Sayısı:</strong> {userData.surveyCount ?? 0}
       </p>
     </div>
 
-    <div className="flex justify-center mt-2">
-      <p className="bg-gray-100 rounded px-4 py-2 center-text">
+    <div className="user-info__row">
+      <p className="user-info__item">
         <strong>Mail adresi:</strong> {userData.email}
       </p>
     </div>
     
-    <div className="controls">
+    <div className="user-info__controls">
       <button
         onClick={() => setShowPasswordForm(!showPasswordForm)}
-        className="custom-file-button text-center inline-block px-4 py-2"
+        className="btn--file-toggle"
       >
         Şifre Değiştir
       </button>
