@@ -92,7 +92,7 @@ function Register() {
           <input
             type="password"
             value={password}
-            placeholder="En az 6 karakter giriniz."
+            placeholder="Şifrenizi giriniz."
             onChange={(e) => setPassword(e.target.value)}
             required
           />
@@ -107,7 +107,7 @@ function Register() {
           <input
             type="password"
             value={confirmPassword}
-            placeholder="En az 6 karakter giriniz."
+            placeholder="Şifrenizi giriniz."
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />

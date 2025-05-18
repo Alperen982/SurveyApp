@@ -187,9 +187,21 @@ function Home() {
              onChange={(e) => setNewPass(e.target.value)}
              className="password-input"
            />
+           <input
+             type="password"
+             placeholder="Yeni Şifre Tekrar"
+             value={newPassConfirm}
+             className="password-input"
+           />
             <div className="controls">
               <button
-                onClick={handlePasswordChange}
+                onClick={() => {
+                   if (newPass === newPassConfirm) {
+                     handlePasswordChange();
+                   } else {
+                     alert('Yeni şifreler eşleşmiyor!');
+                   }
+                 }}
                 className="custom-file-button text-center w-full"
               >
                 Şifreyi Güncelle
