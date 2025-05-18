@@ -227,18 +227,6 @@ function Home() {
              onChange={(e) => setNewPassConfirm(e.target.value)}
              className="password-input"
            />
-           {confirmPassword && (
-          <small
-            style={{
-              color: newPass === newPassConfirm ? 'green' : 'red',
-              marginLeft: '8px'
-            }}
-          >
-            {newPass === newPassConfirm
-              ? 'Şifreler eşleşiyor.'
-              : 'Şifreler eşleşmiyor.'}
-          </small>
-        )}
            {newPassConfirm && (
             <small style={{ color: newPass === newPassConfirm ? 'green' : 'red' }}>
               {newPass === newPassConfirm ? 'Şifreler eşleşiyor.' : 'Şifreler eşleşmiyor.'}
