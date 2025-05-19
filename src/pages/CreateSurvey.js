@@ -28,7 +28,7 @@ function CreateSurvey() {
     if (error) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [ErrorCount]);
+  }, [errorCount]);
 
   const reportError = (msg) => {
     setError(msg);
