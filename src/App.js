@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import ResetPassword from './pages/PasswordReset';
 import Navbar from './components/Navbar';
@@ -16,6 +16,9 @@ function App() {
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -24,74 +27,60 @@ function App() {
     return () => unsubscribe();
   }, [auth]);
 
+  // Firebase reset password linkinden gelen parametreyi yakalama ve yönlendirme
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const mode = params.get("mode");
+    const oobCode = params.get("oobCode");
+
+    if (mode === "resetPassword" && oobCode) {
+      navigate(`/reset-password?mode=${mode}&oobCode=${oobCode}`);
+    }
+  }, [location.search, navigate]);
+
+
   if (loading) {
     return <div className="text-center mt-10">Yükleniyor...</div>;
   }
 
-  return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <div className="container">
-          <Routes>
-            {/* Root route: Home if logged in, else Login */}
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route
-              path="/"
-              element={
-                user ? <Home /> : <Navigate to="/login" replace />
-              }
-            />
-
-            {/* Auth-protected routes */}
-            <Route
-              path="/surveys"
-              element={
-                user ? <Surveys /> : <Navigate to="/login" replace />
-              }
-            />
-            <Route
-              path="/users/:userId/surveys/:surveyId"
-              element={
-                user ? <SurveyDetails /> : <Navigate to="/login" replace />
-              }
-            />
-            <Route
-              path="/create-survey"
-              element={
-                user ? <CreateSurvey /> : <Navigate to="/login" replace />
-              }
-            />
-            <Route
-              path="/survey/:id"
-              element={
-                user ? <SurveyDetail /> : <Navigate to="/login" replace />
-              }
-            />
-
-            {/* Public routes */}
-            <Route
-              path="/login"
-              element={
-                !user ? <Login /> : <Navigate to="/" replace />
-              }
-            />
-            <Route
-              path="/register"
-              element={
-                !user ? <Register /> : <Navigate to="/" replace />
-              }
-            />
-
-            {/* Catch-all */}
-            <Route
-              path="*"
-              element={<Navigate to={user ? '/' : '/login'} replace />}
-            />
-          </Routes>
-        </div>
-      </div>
-    </Router>
+   return (
+    <div className="container">
+      <Routes>
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/"
+          element={user ? <Home /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/surveys"
+          element={user ? <Surveys /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/users/:userId/surveys/:surveyId"
+          element={user ? <SurveyDetails /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/create-survey"
+          element={user ? <CreateSurvey /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/survey/:id"
+          element={user ? <SurveyDetail /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/login"
+          element={!user ? <Login /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/register"
+          element={!user ? <Register /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="*"
+          element={<Navigate to={user ? '/' : '/login'} replace />}
+        />
+      </Routes>
+    </div>
   );
 }
 

@@ -42,20 +42,24 @@ function Login() {
   };
 
   const handleResetPassword = async () => {
-    if (!email) {
-      setResetMessage("Lütfen önce e-posta adresinizi girin.");
-      return;
-    }
+  const trimmedEmail = email.trim().toLowerCase();
 
-    const auth = getAuth();
+  if (!trimmedEmail) {
+    setResetMessage("Lütfen önce e-posta adresinizi girin.");
+    return;
+  }
+
+  const auth = getAuth();
+
   try {
-    const methods = await fetchSignInMethodsForEmail(auth, email);
-    if (methods.length === 0) {
+    const methods = await fetchSignInMethodsForEmail(auth, trimmedEmail);
+
+    if (!methods || methods.length === 0) {
       setResetMessage("Böyle bir e-posta adresi sistemde kayıtlı değil.");
       return;
     }
 
-    await sendPasswordResetEmail(auth, email);
+    await sendPasswordResetEmail(auth, trimmedEmail);
     setResetMessage("Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.");
   } catch (error) {
     console.error("Şifre sıfırlama hatası:", error);
