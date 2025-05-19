@@ -13,6 +13,7 @@ function CreateSurvey() {
   const [questions, setQuestions] = useState([]);
   const [endDate, setEndDate] = useState('');
   const [error, setError] = useState(''); 
+  const [errorCount, setErrorCount] = useState(0);
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('other');
   const [location, setLocation] = useState('');
@@ -27,35 +28,34 @@ function CreateSurvey() {
     if (error) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [error]);
+  }, [setErrorCount]);
+
+  const reportError = (msg) => {
+    setError(msg);
+    setErrorCount((c) => c + 1);
+  };
 
   const tryAddEmail = async (email) => {
-    // 1️⃣ Boşsa zaten hata
     if (!email) {
-      setError('Lütfen bir e‑posta giriniz');
+      reportError('Lütfen bir e‑posta giriniz');
       return false;
     }
     try {
       await fetchSignInMethodsForEmail(auth, email);
     } catch (err) {
       if (err.code === 'auth/invalid-email') {
-        setError('Geçersiz e‑posta formatı');
+        reportError('Geçersiz e‑posta formatı');
         return false;
       }
-      // Diğer hatalara dilerseniz farklı mesaj verebilirsiniz
-      setError('E‑posta doğrulaması sırasında hata oluştu');
-      return false;
     }
 
-    // 3️⃣ Kopya kontrolü
     if (emails.includes(email)) {
-      setError('Bu e‑posta zaten listede');
+      reportError('Bu e‑posta zaten listede');
       return false;
     }
 
-    // Geçtiyse ekle ve hata mesajını temizle
     setEmails([...emails, email]);
-    setError('');
+    reportError('');
     return true;
   };
 
@@ -86,32 +86,32 @@ function CreateSurvey() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    reportError('');
     
 
     if (!title.trim()) {
-      setError('Lütfen etkinlik başlığı girin');
+      reportError('Lütfen etkinlik başlığı girin');
       return;
     }
 
     if (emails.length === 0) {
-    setError('Lütfen en az bir e‑posta ekleyin');
+    reportError('Lütfen en az bir e‑posta ekleyin');
     return;
   }
   if (!googleMapsLink.trim()) {
-      setError('Lütfen bir Google Maps linki veya iframe kodu girin');
+      reportError('Lütfen bir Google Maps linki veya iframe kodu girin');
       return;
     }
-    
+
   if (!isValidGoogleMaps(googleMapsLink)) {
-      setError('Lütfen geçerli bir Google Maps linki veya iframe kodu girin');
+      reportError('Lütfen geçerli bir Google Maps linki veya iframe kodu girin');
       return;
     }
 
 const totalOptionsCount = questions.reduce((acc, question) => acc + question.options.length, 0);
 
 if (totalOptionsCount < 2) {
-  setError('Etkinlik için en 2 zaman dilimi seçmelisiniz.');
+  reportError('Etkinlik için en 2 zaman dilimi seçmelisiniz.');
   return;
 }
 const areDatesValid = questions.every(question =>
@@ -136,14 +136,14 @@ const areDatesValid = questions.every(question =>
   ;
 
 if (!areDatesValid) {
-  setError('Lütfen geçerli tüm tarih ve saatleri giriniz. Tekrar eden ve Oy kullanma tarihinden önceki seçenekler geçersizdir.');
+  reportError('Lütfen geçerli tüm tarih ve saatleri giriniz. Tekrar eden ve Oy kullanma tarihinden önceki seçenekler geçersizdir.');
   return;
 }
 
     const auth = getAuth();
     const user = auth.currentUser;
     if (!user) {
-      setError('Lütfen giriş yapın');
+      reportError('Lütfen giriş yapın');
       return;
     }
 
@@ -200,7 +200,7 @@ if (!areDatesValid) {
       navigate('/surveys');
     } catch (error) {
       console.error("Hata oluştu:", error);
-      setError('Anket kaydedilirken bir hata oluştu');
+      reportError('Anket kaydedilirken bir hata oluştu');
     }
   };
 
