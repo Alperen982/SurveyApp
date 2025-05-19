@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { signInWithSession} from '../Firebase/config';
+import { signInWithSession } from '../Firebase/config';
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { getAuth, sendPasswordResetEmail, fetchSignInMethodsForEmail } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 function Login() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
 
-   const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const user = await signInWithSession(email, password);
@@ -28,7 +28,6 @@ function Login() {
       }
     } catch (error) {
       console.error('Giriş sırasında hata oluştu:', error);
-      // Firebase auth errors
       if (
         error.code === 'auth/invalid-credential' ||
         error.code === 'auth/wrong-password' ||
@@ -42,33 +41,22 @@ function Login() {
   };
 
   const handleResetPassword = async () => {
-  const trimmedEmail = email.trim().toLowerCase();
+    const trimmedEmail = email.trim().toLowerCase();
 
-  if (!trimmedEmail) {
-    setResetMessage("Lütfen önce e-posta adresinizi girin.");
-    return;
-  }
-
-  const auth = getAuth();
-
-  try {
-    const methods = await fetchSignInMethodsForEmail(auth, trimmedEmail);
-
-    if (!methods || methods.length === 0) {
-      setResetMessage("Böyle bir e-posta adresi sistemde kayıtlı değil.");
+    if (!trimmedEmail) {
+      setResetMessage("Lütfen önce e-posta adresinizi girin.");
       return;
     }
 
-    await sendPasswordResetEmail(auth, trimmedEmail);
-    setResetMessage("Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.");
-  } catch (error) {
-    console.error("Şifre sıfırlama hatası:", error);
-    setResetMessage("Şifre sıfırlama başarısız. Lütfen tekrar deneyin.");
-  }
-};
+    const auth = getAuth();
 
-  const closePopup = () => {
-    setShowError(false);
+    try {
+      await sendPasswordResetEmail(auth, trimmedEmail);
+      setResetMessage("Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.");
+    } catch (error) {
+      console.error("Şifre sıfırlama hatası:", error);
+      setResetMessage("Şifre sıfırlama başarısız. Lütfen tekrar deneyin.");
+    }
   };
 
   return (
@@ -78,7 +66,7 @@ function Login() {
         <div className="form-group">
           <label>Email:</label>
           <input
-            id = "lMail"
+            id="lMail"
             type="email"
             value={email}
             placeholder="Mail adresinizi giriniz."
@@ -89,7 +77,7 @@ function Login() {
         <div className="form-group">
           <label>Şifre:</label>
           <input
-            id = "lPassword"
+            id="lPassword"
             type="password"
             value={password}
             placeholder="Şifrenizi giriniz."
@@ -97,20 +85,20 @@ function Login() {
             required
           />
         </div>
-        <button type="submitLogin">Giriş Yap</button>
+        <button type="submit">Giriş Yap</button>
       </form>
 
-       <button type="button" onClick={handleResetPassword} style={{ marginTop: '10px' }}>
+      <button type="button" onClick={handleResetPassword} style={{ marginTop: '10px' }}>
         Şifremi Unuttum
       </button>
+
       {resetMessage && (
         <p style={{ marginTop: '10px', color: resetMessage.includes("gönderildi") ? 'green' : 'red' }}>
           {resetMessage}
         </p>
       )}
-
     </div>
   );
 }
 
-export default Login; 
+export default Login;
