@@ -47,14 +47,14 @@ function RouterWrapper({ user }) {
     const oobCode = params.get("oobCode");
 
     if (mode === "resetPassword" && oobCode) {
-      navigate(`/reset-password?mode=${mode}&oobCode=${oobCode}`, { replace: true });
+      navigate(`/Şifre değiştir?mode=${mode}&oobCode=${oobCode}`, { replace: true });
     }
   }, [location.search, navigate]);
 
   return (
     <div className="container">
       <Routes>
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/Şifre değiştir" element={<ResetPassword />} />
         <Route
           path="/"
           element={user ? <Home /> : <Navigate to="/login" replace />}
