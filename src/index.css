@@ -1254,20 +1254,27 @@ h2, h3, h4 {
   text-decoration: none;
   color: white;
 }
+/* Genel Sayfa Stil */
+.survey-container-inside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
 /* SurveyBox için stil */
 .survey-box {
-  width: 50%;
-  height: 80%;
-  padding: 30px;
-  background-color: #111827; /* Lacivert arka plan */
-  border: 2px solid #800080; /* Mor ince çizgi */
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* ⬅︎ Burayı flex-start yapın */
   align-items: center;
+  width: 50%;
+  height: auto;        /* sabit yükseklik yerine içeriğe göre */
+  padding: 30px;
+  background-color: #111827;
+  border: 2px solid #800080;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Başlık stili */

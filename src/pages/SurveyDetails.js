@@ -213,7 +213,7 @@ function SurveyDetails() {
     }
 
     return (
-        <div className="survey-container">
+        <div className="survey-container-inside">
             <div className="survey-box">
                 <h2 className="survey-title">{survey.title}</h2>
                 <p style={{ color: '#fff' }}>{survey.description || 'Açıklama mevcut değil'}</p>
