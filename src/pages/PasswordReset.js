@@ -55,8 +55,7 @@ function ResetPassword() {
     try {
       await confirmPasswordReset(auth, oobCode, newPassword);
       setMessage("Şifreniz başarıyla güncellendi.");
-      // İstersen yönlendirme yapabilirsin:
-      // setTimeout(() => navigate('/login'), 3000);
+      setTimeout(() => navigate('/login'), 3000);
     } catch (error) {
       console.error("Şifre sıfırlama hatası:", error);
       setMessage("Şifre güncellenemedi: " + error.message);

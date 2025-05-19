@@ -86,9 +86,13 @@ function Login() {
           />
         </div>
         <button type="submit">Giriş Yap</button>
-        <button type="button" onClick={handleResetPassword} style={{ marginTop: '10px' }}>
-        Şifremi Unuttum
-      </button>
+        <button
+        type="button"
+        onClick={handleResetPassword}
+        style={{ marginTop: '10px', marginLeft: '10px' }}
+          >
+          Şifremi Unuttum
+        </button>
       </form>
       {resetMessage && (
         <p style={{ marginTop: '10px', color: resetMessage.includes("gönderildi") ? 'green' : 'red' }}>
