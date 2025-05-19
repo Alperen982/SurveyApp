@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import ResetPassword from './pages/ResetPassword';
+import ResetPassword from './pages/PasswordReset';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import CreateSurvey from './pages/CreateSurvey';
