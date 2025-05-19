@@ -1202,8 +1202,8 @@ h2, h3, h4 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* zaten üstte başlatıyor */
-  /* min-height: 100vh; <- bu satırı kaldırabilir veya auto yapabilirsiniz */
+  justify-content: flex-start; /* Yukarıdan başlasın */
+  /* min-height: 100vh; <-- bunu kaldırın */
   padding: 20px;
   background-color: #111827;
 }
@@ -1253,13 +1253,6 @@ h2, h3, h4 {
 .survey-link {
   text-decoration: none;
   color: white;
-}
-/* Genel Sayfa Stil */
-.survey-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
 }
 
 /* SurveyBox için stil */
