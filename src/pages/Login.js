@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { signInWithSession} from '../Firebase/config';
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 function Login() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [resetMessage, setResetMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showError, setShowError] = useState(false);
 
@@ -36,6 +38,22 @@ function Login() {
       } else {
         alert('Bir hata oluştu. Lütfen tekrar deneyin.');
       }
+    }
+  };
+
+  const handleResetPassword = async () => {
+    if (!email) {
+      setResetMessage("Lütfen önce e-posta adresinizi girin.");
+      return;
+    }
+
+    const auth = getAuth();
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setResetMessage("Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.");
+    } catch (error) {
+      console.error("Şifre sıfırlama hatası:", error);
+      setResetMessage("Şifre sıfırlama başarısız: " + error.message);
     }
   };
 
@@ -71,6 +89,16 @@ function Login() {
         </div>
         <button type="submitLogin">Giriş Yap</button>
       </form>
+
+       <button type="button" onClick={handleResetPassword} style={{ marginTop: '10px' }}>
+        Şifremi Unuttum
+      </button>
+      {resetMessage && (
+        <p style={{ marginTop: '10px', color: resetMessage.includes("gönderildi") ? 'green' : 'red' }}>
+          {resetMessage}
+        </p>
+      )}
+
     </div>
   );
 }
