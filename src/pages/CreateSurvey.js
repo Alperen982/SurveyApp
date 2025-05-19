@@ -111,12 +111,12 @@ function CreateSurvey() {
     return;
   }
   if (!googleMapsLink.trim()) {
-      reportError('Lütfen bir Google Maps linki veya iframe kodu girin');
+      reportError('Lütfen bir Google Maps linki girin');
       return;
     }
 
   if (!isValidGoogleMaps(googleMapsLink)) {
-      reportError('Lütfen geçerli bir Google Maps linki veya iframe kodu girin');
+      reportError('Lütfen geçerli bir Google Maps linki girin');
       return;
     }
 
@@ -335,7 +335,7 @@ if (!areDatesValid) {
             value={googleMapsLink}
             onChange={(e) => setGoogleMapsLink(e.target.value)}
             className="form-input"
-            placeholder="Google Maps'ten aldığınız iframe kodunu buraya yapıştırın"
+            placeholder="Google Maps linkinizi buraya yapıştırın"
             rows="4"
           />
         </div>
