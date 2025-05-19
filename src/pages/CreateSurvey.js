@@ -170,7 +170,7 @@ if (!areDatesValid) {
 
     try {
       const docRef = await addDoc(collection(db, `users/${user.uid}/surveys`), surveyData);
-      console.log("Anket başarıyla kaydedildi:", docRef.id);
+      console.log("Etkinlik başarıyla kaydedildi:", docRef.id);
 
       const userDocRef = doc(db, "users", user.uid);
       await updateDoc(userDocRef, {surveyCount: increment(1)});
@@ -183,8 +183,8 @@ if (!areDatesValid) {
         try {
           const response = await axios.post("/api/send-email", {
             recipients: emails,
-            subject: "Yeni Anket Linkiniz",
-            message: `Merhaba, anketinize şu link üzerinden erişebilirsiniz: ${placeholderLink}`,
+            subject: "Yeni Etkinlik Linkiniz",
+            message: `Merhaba, etkinlik davetinize şu link üzerinden erişebilirsiniz: ${placeholderLink}`,
           });
           console.log(response.data.message);
         } catch (error) {
@@ -200,7 +200,7 @@ if (!areDatesValid) {
       navigate('/surveys');
     } catch (error) {
       console.error("Hata oluştu:", error);
-      reportError('Anket kaydedilirken bir hata oluştu');
+      reportError('Etkinlik kaydedilirken bir hata oluştu');
     }
   };
 

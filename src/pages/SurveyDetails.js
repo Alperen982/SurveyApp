@@ -62,7 +62,7 @@ function SurveyDetails() {
         if (authLoading) return;
 
         if (currentUserId === null) {
-            setError('Anketi Görüntülemek İçin Önce Giriş Yapmalısınız!');
+            setError('Etkinliği Görüntülemek İçin Önce Giriş Yapmalısınız!');
             const next = encodeURIComponent(window.location.pathname);
             navigate(`/login?next=${next}`);
             return;
@@ -70,7 +70,7 @@ function SurveyDetails() {
 
         const fetchSurveyDetails = async () => {
             if (!userId || !surveyId) {
-                setError('Anket ID veya kullanıcı ID eksik');
+                setError('Etkinlik ID veya kullanıcı ID eksik');
                 return;
             }
 
@@ -79,7 +79,7 @@ function SurveyDetails() {
                 const surveyDoc = await getDoc(surveyDocRef);
 
                 if (!surveyDoc.exists()) {
-                    setError('Anket bulunamadı');
+                    setError('Etkinlik bulunamadı');
                     return;
                 }
 
@@ -101,7 +101,7 @@ function SurveyDetails() {
                 }
             } catch (err) {
                 console.error('Veri çekme hatası:', err);
-                setError('Anket verisi alınırken bir hata oluştu');
+                setError('Etkinlik verisi alınırken bir hata oluştu');
             }
         };
 
@@ -199,8 +199,8 @@ function SurveyDetails() {
             await deleteDoc(surveyDocRef);
             navigate('/surveys');
         } catch (error) {
-            console.error('Anket silme hatası:', error);
-            setError('Anket silinirken bir hata oluştu');
+            console.error('Etkinlik silme hatası:', error);
+            setError('Etkinlik silinirken bir hata oluştu');
         }
     };
 
@@ -294,7 +294,7 @@ function SurveyDetails() {
                 {isCreator && (
                     <div>
                         <button className="survey-button delete-button" onClick={deleteSurvey}>
-                            Anketi Sil
+                            Etkinliği Sil
                         </button>
                     </div>
                 )}
