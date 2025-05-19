@@ -11,6 +11,14 @@ function ResetPassword() {
 
   const query = new URLSearchParams(location.search);
   const oobCode = query.get('oobCode'); // Firebase bağlantısından gelen kod
+  const mode = query.get('mode');
+
+  useEffect(() => {
+    // Eğer mode ve oobCode yoksa veya mode resetPassword değilse login'e yönlendir
+    if (mode !== 'resetPassword' || !oobCode) {
+      navigate('/', { replace: true });
+    }
+  }, [mode, oobCode, navigate]);
 
   // Şifre güç kontrol fonksiyonları (register ile aynı)
   const getPasswordStrengthMessage = (pwd) => {
