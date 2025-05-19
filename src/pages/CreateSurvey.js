@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  { useState, useEffect }  from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db, addDoc, collection, getAuth} from '../Firebase/config';
@@ -23,6 +23,12 @@ function CreateSurvey() {
   const [emails, setEmails] = useState([]);
 
   const auth = getAuth();
+
+  useEffect(() => {
+    if (error) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [error]);
 
   const tryAddEmail = async (email) => {
     // 1️⃣ Boşsa zaten hata
@@ -69,6 +75,7 @@ function CreateSurvey() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
 
     if (!title.trim()) {
       setError('Lütfen etkinlik başlığı girin');
@@ -83,7 +90,7 @@ function CreateSurvey() {
 const totalOptionsCount = questions.reduce((acc, question) => acc + question.options.length, 0);
 
 if (totalOptionsCount < 2) {
-  setError('En az iki seçenek eklemelisiniz.');
+  setError('Etkinlik için en 2 zaman dilimi seçmelisiniz.');
   return;
 }
 const areDatesValid = questions.every(question =>
