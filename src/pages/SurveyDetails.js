@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db, doc, getDoc, updateDoc, deleteDoc, getAuth } from '../Firebase/config';
 import { onAuthStateChanged } from 'firebase/auth';
+import { increment } from 'firebase/firestore';
 
 function SurveyDetails() {
     const [survey, setSurvey] = useState(null);
@@ -197,6 +198,8 @@ function SurveyDetails() {
         try {
             const surveyDocRef = doc(db, `users/${userId}/surveys/${surveyId}`);
             await deleteDoc(surveyDocRef);
+            const userDocRef = doc(db, 'users', userId);
+            await updateDoc(userDocRef, { surveyCount: increment(-1) });
             navigate('/surveys');
         } catch (error) {
             console.error('Etkinlik silme hatası:', error);

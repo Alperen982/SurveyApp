@@ -70,19 +70,31 @@ function CreateSurvey() {
   ];
 
   function isValidGoogleMaps(input) {
-    const iframeMatch = input.match(/<iframe[^>]+src=["']([^"']+)["']/i);
-    const urlString = iframeMatch ? iframeMatch[1] : input.trim();
+    const trimmed = input.trim();
 
-    try {
-      const url = new URL(urlString);
-      return (
-        url.hostname.endsWith('google.com') &&
-        url.pathname.startsWith('/maps')
-      );
-    } catch {
+  if (/\<iframe/i.test(trimmed)) {
+    return false;
+  }
+
+  try {
+    const url = new URL(trimmed);
+    const host = url.hostname.toLowerCase();
+    if (
+      url.protocol !== 'https:' ||
+      !(host === 'maps.google.com' || host.endsWith('.google.com'))
+    ) {
       return false;
     }
+
+    if (!url.pathname.startsWith('/maps')) {
+      return false;
+    }
+
+    return true;
+  } catch {
+    return false;
   }
+}
   
   const handleSubmit = async (e) => {
     e.preventDefault();

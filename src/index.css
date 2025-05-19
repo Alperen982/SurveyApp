@@ -1257,11 +1257,13 @@ h2, h3, h4 {
 /* Genel Sayfa Stil */
 .survey-container-inside {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  justify-content: center;    /* Yatayda ortaya */
+  align-items: flex-start;    /* Dikeyde üstten başlat */
+  /* min-height: 100vh;        // Eğer tüm ekran yüksekliğini kaplamaya gerek yoksa bu satırı kaldırın */
+  padding-top: 20px;          /* Üstten biraz boşluk bırakmak isterseniz */
+  gap: 20px;                  /* Kartlar arasında boşluk */
+  flex-wrap: wrap;            /* Birden çok kart varsa alt satıra sarma */
 }
-
 /* SurveyBox için stil */
 .survey-box {
   display: flex;
