@@ -79,18 +79,24 @@ function CreateSurvey() {
   try {
     const url = new URL(trimmed);
     const host = url.hostname.toLowerCase();
-    if (
-      url.protocol !== 'https:' ||
-      !(host === 'maps.google.com' || host.endsWith('.google.com'))
-    ) {
-      return false;
-    }
 
-    if (!url.pathname.startsWith('/maps')) {
-      return false;
-    }
+    const validHosts = [
+      'www.google.com',
+      'google.com',
+      'maps.google.com',
+      'goo.gl',
+      'maps.app.goo.gl'
+    ];
 
-    return true;
+    const isValidHost = validHosts.some(validHost =>
+      host === validHost || host.endsWith(`.${validHost}`)
+    );
+
+    const isValidPath = (
+      host.includes('google.com') && url.pathname.startsWith('/maps')
+    ) || host.includes('goo.gl');
+
+    return url.protocol === 'https:' && isValidHost && isValidPath;
   } catch {
     return false;
   }

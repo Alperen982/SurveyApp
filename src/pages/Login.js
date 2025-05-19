@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { signInWithSession} from '../Firebase/config';
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail, fetchSignInMethodsForEmail } from "firebase/auth";
 
 function Login() {
   const navigate = useNavigate();
@@ -48,14 +48,20 @@ function Login() {
     }
 
     const auth = getAuth();
-    try {
-      await sendPasswordResetEmail(auth, email);
-      setResetMessage("Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.");
-    } catch (error) {
-      console.error("Şifre sıfırlama hatası:", error);
-      setResetMessage("Şifre sıfırlama başarısız: " + error.message);
+  try {
+    const methods = await fetchSignInMethodsForEmail(auth, email);
+    if (methods.length === 0) {
+      setResetMessage("Böyle bir e-posta adresi sistemde kayıtlı değil.");
+      return;
     }
-  };
+
+    await sendPasswordResetEmail(auth, email);
+    setResetMessage("Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.");
+  } catch (error) {
+    console.error("Şifre sıfırlama hatası:", error);
+    setResetMessage("Şifre sıfırlama başarısız. Lütfen tekrar deneyin.");
+  }
+};
 
   const closePopup = () => {
     setShowError(false);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import ResetPassword from './pages/ResetPassword';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import CreateSurvey from './pages/CreateSurvey';
@@ -34,6 +35,7 @@ function App() {
         <div className="container">
           <Routes>
             {/* Root route: Home if logged in, else Login */}
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route
               path="/"
               element={
