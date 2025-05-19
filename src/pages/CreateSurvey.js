@@ -69,7 +69,20 @@ function CreateSurvey() {
     { value: 'Diğer', label: 'Diğer' }
   ];
 
+  function isValidGoogleMaps(input) {
+    const iframeMatch = input.match(/<iframe[^>]+src=["']([^"']+)["']/i);
+    const urlString = iframeMatch ? iframeMatch[1] : input.trim();
 
+    try {
+      const url = new URL(urlString);
+      return (
+        url.hostname.endsWith('google.com') &&
+        url.pathname.startsWith('/maps')
+      );
+    } catch {
+      return false;
+    }
+  }
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,6 +98,15 @@ function CreateSurvey() {
     setError('Lütfen en az bir e‑posta ekleyin');
     return;
   }
+  if (!googleMapsLink.trim()) {
+      setError('Lütfen bir Google Maps linki veya iframe kodu girin');
+      return;
+    }
+    
+  if (!isValidGoogleMaps(googleMapsLink)) {
+      setError('Lütfen geçerli bir Google Maps linki veya iframe kodu girin');
+      return;
+    }
 
 const totalOptionsCount = questions.reduce((acc, question) => acc + question.options.length, 0);
 
@@ -94,12 +116,10 @@ if (totalOptionsCount < 2) {
 }
 const areDatesValid = questions.every(question =>
   question.options.every(option => {
-    // option boş değil, geçerli tarih olmalı
     if (!option) return false;
     const optionDate = new Date(option);
     if (isNaN(optionDate.getTime())) return false;
     
-    // minimum tarih belirlenmişse, optionDate bu tarihten küçük olmamalı
     if (endDate) {
       const minDate = new Date(endDate);
       if (optionDate < minDate) return false;
@@ -107,10 +127,16 @@ const areDatesValid = questions.every(question =>
     
     return true;
   })
-);
+)
+  && questions.every(question => {
+  const opts = question.options;
+  const timestamps = opts.map(opt => new Date(opt).getTime());
+  return new Set(timestamps).size === timestamps.length;
+  });
+  ;
 
 if (!areDatesValid) {
-  setError('Lütfen geçerli tüm tarih ve saatleri giriniz ve belirtilen tarihten önce olmasın.');
+  setError('Lütfen geçerli tüm tarih ve saatleri giriniz. Tekrar eden ve Oy kullanma tarihinden önceki seçenekler geçersizdir.');
   return;
 }
 
@@ -292,7 +318,7 @@ if (!areDatesValid) {
         </div>
 
         <div className="form-group">
-          <label>Google Maps HTML:</label>
+          <label>Google Maps Link:</label>
           <textarea
             value={googleMapsLink}
             onChange={(e) => setGoogleMapsLink(e.target.value)}

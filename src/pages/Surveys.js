@@ -22,7 +22,14 @@ function Surveys() {
                         ...doc.data()
                     };
                 });
-                setSurveys(surveysList);
+
+                const sorted = surveysList.sort((a, b) => {
+        const da = a.endDate ? new Date(a.endDate) : new Date(a.createdAt);
+        const db = b.endDate ? new Date(b.endDate) : new Date(b.createdAt);
+        return da - db;
+      });
+
+                setSurveys(sorted);
             } catch (error) {
                 console.error("Veri çekme hatası:", error);
                 setError('Etkinlikler alınırken bir hata oluştu');
