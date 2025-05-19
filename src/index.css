@@ -1201,20 +1201,21 @@ h2, h3, h4 {
 .surveys-page {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Yatayda ortalama */
-  justify-content: flex-start; /* Üst kısmına yerleştirme */
-  min-height: 100vh; /* Ekranın tamamını kapsayacak şekilde */
+  align-items: center;
+  justify-content: flex-start; /* zaten üstte başlatıyor */
+  /* min-height: 100vh; <- bu satırı kaldırabilir veya auto yapabilirsiniz */
   padding: 20px;
-  background-color: #111827; /* Sayfa arka plan rengi */
+  background-color: #111827;
 }
 
-/* Survey kartlarının yerleşimi için konteyner */
 .survey-container {
   display: flex;
-  flex-wrap: wrap; /* Kartları yan yana yerleştirebilmek için */
-  justify-content: flex-start; /* Kartları sola hizalamak için */
-  gap: 20px; /* Kartlar arasına boşluk eklemek için */
-  margin-top: 20px; /* "Oluşturduğun Anketler" yazısından sonra biraz boşluk bırakıyoruz */
+  flex-wrap: wrap;           /* Birden fazla kartta da sarma işlesin */
+  justify-content: flex-start;/* Kartları sola yasla */
+  align-items: flex-start;    /* Kartları dikeyde üstten başlat */
+  gap: 20px;
+  margin-top: 20px;
+  /* min-height: 100vh; <-- bu satırı kaldırın veya yoruma alın */
 }
 
 /* Her bir anket kartı */
@@ -1263,17 +1264,17 @@ h2, h3, h4 {
 
 /* SurveyBox için stil */
 .survey-box {
-  width: 50%;
-  height: 80%;
-  padding: 30px;
-  background-color: #111827; /* Lacivert arka plan */
-  border: 2px solid #800080; /* Mor ince çizgi */
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* ⬅︎ Burayı flex-start yapın */
   align-items: center;
+  width: 50%;
+  height: auto;        /* sabit yükseklik yerine içeriğe göre */
+  padding: 30px;
+  background-color: #111827;
+  border: 2px solid #800080;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Başlık stili */
