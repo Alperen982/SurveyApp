@@ -10,7 +10,6 @@ function SurveyDetail() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // localStorage'dan anketi al
     const savedSurveys = JSON.parse(localStorage.getItem('surveys') || '[]');
     const currentSurvey = savedSurveys.find(s => s.id === id);
     
@@ -51,7 +50,6 @@ function SurveyDetail() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Cevapları kaydet
     const savedResponses = JSON.parse(localStorage.getItem(`survey_responses_${id}`) || '[]');
     savedResponses.push({
       answers: userAnswers,
